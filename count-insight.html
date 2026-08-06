@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘点环节现场洞察报告 · 消费品仓库看板</title>
+<style>
+  :root{
+    --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
+    --bg:#f5f7fa; --card:#fff; --text:#1f2328; --muted:#656d76;
+    --border:#e6e8eb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.7;
+  }
+  header{
+    background:linear-gradient(135deg,#16263f,#2f81f7);
+    color:#fff; padding:28px 24px; text-align:center; position:relative;
+  }
+  header .back{
+    position:absolute; left:20px; top:20px; z-index:5;
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3);
+    border-radius:20px; padding:6px 16px; font-size:13px;
+    color:#fff; text-decoration:none; box-shadow:0 1px 6px rgba(0,0,0,.15);
+  }
+  header .back:hover{background:rgba(255,255,255,.25);}
+  header .badge-row{margin-top:10px;}
+  header .domain{
+    display:inline-block; background:rgba(255,255,255,.14);
+    border-radius:20px; padding:4px 16px; font-size:13px;
+  }
+  header h1{font-size:24px; font-weight:700; letter-spacing:1px; margin-top:10px;}
+  header p{margin-top:8px; font-size:14px; opacity:.9;}
+  .container{max-width:1000px; margin:0 auto; padding:0 18px 60px;}
+  .card{
+    background:var(--card); border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);
+    padding:24px; margin-top:26px; border:1px solid var(--border);
+  }
+  .card h2{
+    font-size:20px; margin-bottom:6px; display:flex; align-items:center; gap:10px;
+  }
+  .card h2 .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:34px; height:34px; border-radius:50%; color:#fff; font-size:16px; flex-shrink:0;
+  }
+  .card .desc{font-size:13px; color:var(--muted); margin-bottom:14px;}
+  .badge{font-size:12px; padding:3px 12px; border-radius:20px; font-weight:500; color:#fff; white-space:nowrap;}
+  .badge.blue{background:var(--primary);}
+  .badge.green{background:var(--green);}
+  .badge.orange{background:var(--orange);}
+  .badge.red{background:var(--red);}
+  .badge.purple{background:#8250df;}
+  table{width:100%; border-collapse:collapse; margin-top:16px; font-size:13px;}
+  th,td{border:1px solid var(--border); padding:9px 11px; text-align:left; vertical-align:top;}
+  th{background:#f0f4f9; font-weight:600;}
+  tr:nth-child(even) td{background:#fafbfc;}
+  ul,ol{margin:8px 0 8px 22px;}
+  li{margin:6px 0;}
+  .tag{display:inline-block; font-size:11px; padding:1px 8px; border-radius:12px; margin:1px 3px 1px 0;}
+  .tag.core{background:#fde8e8; color:var(--red);}
+  .tag.tool{background:#e7f0ff; color:var(--primary);}
+  .tip{
+    background:#fff8e6; border-left:4px solid #f5a623; color:#6b5200;
+    padding:12px 16px; border-radius:0 8px 8px 0; margin-top:20px; font-size:13px;
+  }
+  .callout{
+    background:#eef4ff; border-left:4px solid var(--primary); color:#1a3a6b;
+    padding:14px 18px; border-radius:0 8px 8px 0; margin:16px 0; font-size:14px;
+  }
+  .callout strong{color:#0b2a5b;}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .meta .item{
+    background:#f0f4f9; border:1px solid var(--border); border-radius:8px;
+    padding:6px 12px; font-size:12px; color:var(--muted);
+  }
+  .meta .item b{color:var(--text);}
+  .mermaid{display:flex; justify-content:flex-start; margin:12px 0 4px; overflow-x:auto; width:100%;}
+  .mermaid svg{max-width:100%; height:auto;}
+  footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+<header>
+  <a class="back" href="index.html">← 返回看板首页</a>
+  <div class="badge-row"><span class="domain">🔍 盘点域 · Inventory Count</span></div>
+  <h1>盘点环节 · 现场洞察报告</h1>
+  <p>「账实不符」背后的信息流时滞问题解析</p>
+</header>
+
+<div class="container">
+
+  <!-- 报告元信息 -->
+  <div class="card">
+    <div class="meta">
+      <div class="item">📌 <b>主题</b>：库位"账实不符"背后的信息流时滞</div>
+      <div class="item">📍 <b>发现岗位</b>：盘点</div>
+      <div class="item">🗓️ <b>日期</b>：2026-08-06</div>
+      <div class="item">🧑‍💻 <b>报告人</b>：供应链管培生</div>
+    </div>
+  </div>
+
+  <!-- 一、现象 -->
+  <div class="card">
+    <h2><span class="num" style="background:#2f81f7;">1</span> 现象 <span class="badge blue">What</span></h2>
+    <div class="desc">在模拟库位盘点过程中，仅核对单一库位观察到的账实差异</div>
+    <ul>
+      <li>盘点时<strong>只检查了一个库位</strong>，未复核其他任何库位。</li>
+      <li>该库位在 <b>WMS 系统账面</b>中：<strong>少了一双鞋</strong>（账面记录比应有数量少）。</li>
+      <li>但该库位的<strong>现实货架上</strong>：<strong>多了一双</strong>在系统中<strong>不属于该库位</strong>的鞋。</li>
+      <li>也就是说，<strong>"多出的这双"与"少的这双"是同一双鞋的一体两面</strong>——这双鞋的实物在货架上，但它在系统中的库位归属与实际摆放不符（实物在这里、系统却记为别处）。</li>
+      <li>上报带教工人后，反馈为："这双鞋大概率是<strong>别人提货/拣货取走了，但发货录入尚未完成</strong>。"</li>
+    </ul>
+  </div>
+
+  <!-- 二、风险点 -->
+  <div class="card">
+    <h2><span class="num" style="background:#d1242f;">2</span> 风险点 <span class="badge red">Why it matters</span></h2>
+    <div class="desc">该现象背后对库存管理带来的影响</div>
+    <table>
+      <tr><th>#</th><th>风险点</th><th>说明</th></tr>
+      <tr><td>1</td><td><b>逻辑不闭环，掩盖真实原因</b></td><td>带教解释方向与现象不符——本次仅核对单一库位，"提货出库"的推测只能解释"账面少"，却无法解释"货架多出一双本不属于该库位的鞋"，可能掩盖真正的错放位/串位问题。</td></tr>
+      <tr><td>2</td><td><b>账实差异信号被污染</b></td><td>系统内"伪差异"（在途/未记账）与"真差异"（真实错位/丢失）混叠，管理者难以从报表中精准定位漏洞。</td></tr>
+      <tr><td>3</td><td><b>盘点效率下降</b></td><td>盘点员为"系统中途态"买单——清点、上报、核实后发现是待记账的在途，导致盘点记录作废、工时浪费。</td></tr>
+      <tr><td>4</td><td><b>时间差窗口的管理盲区</b></td><td>在"实物已出库但系统未更新"的窗口期内，账实处于不可信状态，异常难以追溯责任。</td></tr>
+    </table>
+  </div>
+
+  <!-- 三、成因 -->
+  <div class="card">
+    <h2><span class="num" style="background:#f0883e;">3</span> 现象成因 <span class="badge orange">Why it happens</span></h2>
+    <div class="desc">根因：实物流与信息流之间存在"时滞"</div>
+    <div class="callout">
+      <strong>核心论断：</strong>同一双鞋存在"账面与实物错位"，其可能成因有两种：<strong>① 账实时滞</strong>（实物已动、系统未记，如带教所述"提货未录入"）；<strong>② 真实错位</strong>（货放错库位 / 绑错单）。仅凭单库位观察无法二者区分，需进一步核实。
+    </div>
+    <table>
+      <tr><th>#</th><th>成因</th><th>说明</th></tr>
+      <tr><td>1</td><td><b>作业时效优先</b></td><td>现场为抢拣货/出货速度，采取"先动货、后扫枪/后记账"（用账务准确换取作业速度）。</td></tr>
+      <tr><td>2</td><td><b>波次未核销 / 延时核销</b></td><td>货已拣走，但 WMS 的出库确认或波次核销尚未触发。</td></tr>
+      <tr><td>3</td><td><b>补录集中化</b></td><td>部分记账动作被推迟到班次结束或统一时段集中补录。</td></tr>
+      <tr><td>4</td><td><b>数据上送延迟</b></td><td>RF 枪扫描完成，但数据未实时上传（网络、队列等原因）。</td></tr>
+    </table>
+  </div>
+
+  <!-- 四、解决方案 -->
+  <div class="card">
+    <h2><span class="num" style="background:#238636;">4</span> 解决方案 <span class="badge green">How to fix</span></h2>
+    <div class="desc">由操作层到管理层，分层给出对策</div>
+
+    <h3 style="font-size:15px; margin:6px 0 4px; color:#2f81f7;">短期 · 现场操作层（立即可行）</h3>
+    <ol>
+      <li><b>建立"在途 / 占位"状态标识</b>：对"已拣未记账"的货品在系统中打上在途标记，盘点时区分"真实差异"与"在途待记账"。</li>
+      <li><b>规范盘点时机与范围</b>：盘点安排在作业低谷期，或盘点前确认当前波次/在途单据已核销完毕。</li>
+      <li><b>统一差异复核规则</b>：对差异先核对"进行中的出库 / 波次单据"再定性，避免用未证实推测解释已证实现象。</li>
+      <li><b>差异溯源核实</b>：发现"账面少、货架多"时，倒查该鞋的系统库位记录与实际摆放，确认是"在途未记账"还是"真实放错位"，避免直接采信口述推断。</li>
+    </ol>
+
+    <h3 style="font-size:15px; margin:16px 0 4px; color:#8250df;">中期 · 系统 / 流程优化层</h3>
+    <ol>
+      <li><b>缩短记账时滞，推动"动作即记账"</b>：优化拣货/出库的扫码与记账流程，使实物动作与系统更新尽量同拍。</li>
+      <li><b>设置差异年龄（aging）指标</b>：对持续未核销的在途单据设置超时告警，防止"在途"变"永久悬账"。</li>
+      <li><b>盘点差异报表分级</b>：将"在途型差异"与"真实型差异"分离，让管理层看到清洗后的真实净差异。</li>
+    </ol>
+
+    <h3 style="font-size:15px; margin:16px 0 4px; color:#238636;">长期 · 管理与机制层</h3>
+    <ol>
+      <li><b>重构账实同步的考核导向</b>：在作业速度与账实准确度之间明确平衡点，避免"一味追速度、牺牲账实"。</li>
+      <li><b>建立差异根因的持续复盘机制</b>：对反复出现的"先动后录"环节进行流程再造，从源头压缩时滞。</li>
+    </ol>
+  </div>
+
+  <!-- 账实对照示意图 -->
+  <div class="card">
+    <h2><span class="num" style="background:#8250df;">+</span> "少一双" 与 "多一双" —— 本是同一双鞋</h2>
+    <div class="desc">左侧：同一库位观察到的两处「事实」；中间：二者实为同一双鞋的错位；右侧：由此引申出的风险</div>
+    <div class="mermaid">
+flowchart LR
+    subgraph 系统视图["💻 WMS 系统账面 · 少 1 双"]
+        L1["账面上：这双鞋应存在"]:::ok
+        L2["库存记录：'少' 1 双"]:::miss
+    end
+    subgraph 实物视图["📦 现实实物货架 · 多 1 双"]
+        S1["货架上：这双鞋实际在"]:::extra
+        S2["系统归属：不属于本库位"]:::extra
+    end
+    SHOE{"👟 同一双鞋<br/>账实错位"}:::core
+
+    L2 -- "账面缺失" --> SHOE
+    S1 -- "实物多出" --> SHOE
+
+    R1["① 盘点效率下降"]:::risk
+    R2["② 账实信号被污染"]:::risk
+    R3["③ 管理盲区<br/>责任难追"]:::risk
+
+    SHOE --> R1
+    SHOE --> R2
+    SHOE --> R3
+
+    style 系统视图 fill:#f6f9ff,stroke:#2f81f7,color:#0b2a5b
+    style 实物视图 fill:#fffbf4,stroke:#f0883e,color:#6b5200
+    classDef ok fill:#e6f4ea,stroke:#1a7f37,color:#1a7f37
+    classDef miss fill:#fde8e8,stroke:#d1242f,color:#d1242f
+    classDef extra fill:#fff3d6,stroke:#9a6700,color:#9a6700
+    classDef core fill:#eef4ff,stroke:#2f81f7,color:#0b2a5b,stroke-width:2px,font-size:13px
+    classDef risk fill:#fde8e8,stroke:#d1242f,color:#d1242f
+    </div>
+    <div class="tip">
+      💡 <strong>图解三层理解</strong><br>
+      ① <b>现象</b>：同一库位，账面计"少 1 双"，货架却"多出 1 双"不属于本库位的鞋。<br>
+      ② <b>本质</b>：二者是<b>同一双鞋</b>的一体两面——实物在货架上，系统却把它记在了别处（位置错位）。左右两处事实在此汇聚。<br>
+      ③ <b>引申</b>：这一错位会向右延伸出连环风险：效率下降 → 信号失真 → 责任难追，逐级放大到管理层面。
+    </div>
+  </div>
+
+</div>
+
+<footer>盘点环节现场洞察报告 · 消费品仓库看板 · 2026-08-06</footer>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+</script>
+</body>
+</html>

@@ -82,6 +82,13 @@
     background:#fff8e6; border-left:4px solid #f5a623; color:#6b5200;
     padding:12px 16px; border-radius:0 8px 8px 0; margin-top:26px; font-size:13px;
   }
+  .insight-link{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:16px; background:#eef4ff; color:var(--primary);
+    border:1px solid #cfe0ff; border-radius:8px; padding:10px 16px;
+    text-decoration:none; font-size:13px; font-weight:600;
+  }
+  .insight-link:hover{background:#dcebff; border-color:var(--primary);}
   footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
 </style>
 </head>
@@ -89,9 +96,7 @@
 
 <header>
   <div class="author">
-    <span>👤 看板作者：易楷杰</span>
-    <span class="sep">|</span>
-    <span>👥 归属小组：A组</span>
+    <span>👤 看板作者：A组全体成员</span>
   </div>
   <h1>🏭 消费品仓库 · 全流程运营可视化看板</h1>
   <p>上海青浦站 · 鞋类 / 服装 / 配件 ｜ B2C / B2B 仓储全流程</p>
@@ -162,6 +167,7 @@ flowchart LR
       <tr><td>6</td><td>不合格品处理</td><td>破损/潮湿差异反馈、对应单据与照片</td><td class="weight">20</td></tr>
     </table>
     <div class="legend"><span class="tag core">高权重</span>RF收货(25)、不合格品(20)</div>
+    <a class="insight-link" href="receiving-insight.html">📄 查看收货现场洞察报告（实物动线 · 差异道堆积/搬运冲突/通道安全）→</a>
   </div>
 
   <!-- 上架 -->
@@ -209,6 +215,7 @@ flowchart LR
     style A fill:#2f81f7,color:#fff
     </div></div>
     <div class="legend"><span class="tag tool">交付物</span>RF截图 · 码放检查照 · 现场上架照 · 系统盘点表 · 差异处理</div>
+    <a class="insight-link" href="count-insight.html">📄 查看盘点现场洞察报告（账实不符 · 信息流时滞解析）→</a>
   </div>
 
   <!-- 发货拣选 -->
