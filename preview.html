@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仓库全流程可视化看板</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root{
+    --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
+    --bg:#f5f7fa; --card:#fff; --text:#1f2328; --muted:#656d76;
+    --border:#e6e8eb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.6;
+  }
+  header{
+    background:linear-gradient(135deg,#16263f,#2f81f7);
+    color:#fff; padding:28px 24px; text-align:center; position:relative;
+  }
+  header .author{
+    position:absolute; left:20px; top:16px; z-index:5;
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3);
+    border-radius:20px; padding:6px 16px; font-size:13px; font-weight:500;
+    box-shadow:0 1px 6px rgba(0,0,0,.15);
+  }
+  header .author .sep{opacity:.5; margin:0 2px;}
+  header h1{font-size:26px; font-weight:700; letter-spacing:1px;}
+  header p{margin-top:6px; font-size:14px; opacity:.9;}
+  header .kpis{
+    display:flex; gap:16px; justify-content:center; margin-top:20px; flex-wrap:wrap;
+  }
+  header .kpi{
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    border-radius:10px; padding:10px 22px; min-width:120px;
+  }
+  header .kpi .num{font-size:22px; font-weight:700;}
+  header .kpi .lbl{font-size:12px; opacity:.85;}
+  .container{max-width:1400px; margin:0 auto; padding:0 18px 60px;}
+  .card .mx{overflow-x:auto; padding:4px 2px;}
+  .toc{
+    background:var(--card); border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);
+    padding:18px 24px; margin-top:24px; border:1px solid var(--border);
+    display:flex; flex-wrap:wrap; gap:8px 6px; justify-content:center;
+  }
+  .toc a{
+    color:var(--primary); text-decoration:none; font-size:14px;
+    background:#f0f6ff; padding:6px 14px; border-radius:20px;
+  }
+  .toc a:hover{background:#dcebff;}
+  .card{
+    background:var(--card); border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);
+    padding:24px; margin-top:26px; border:1px solid var(--border);
+  }
+  .card h2{
+    font-size:20px; margin-bottom:4px; display:flex; align-items:center; gap:10px;
+  }
+  .card .colored{color:var(--primary);}
+  .card .badge{
+    font-size:12px; padding:3px 12px; border-radius:20px; font-weight:500; color:#fff;
+  }
+  .badge.blue{background:var(--primary);}
+  .badge.green{background:var(--green);}
+  .badge.orange{background:var(--orange);}
+  .badge.purple{background:#8250df;}
+  .card .desc{font-size:13px; color:var(--muted); margin-bottom:14px;}
+  .mermaid{display:flex; justify-content:flex-start; margin:12px 0 4px; overflow-x:auto; width:100%;}
+  .mermaid svg{max-width:100%; height:auto;}
+  table{width:100%; border-collapse:collapse; margin-top:16px; font-size:13px;}
+  th,td{border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top;}
+  th{background:#f0f4f9; font-weight:600;}
+  tr:nth-child(even) td{background:#fafbfc;}
+  .weight{text-align:center; font-weight:700; color:var(--primary); white-space:nowrap;}
+  .tag{display:inline-block; font-size:11px; padding:1px 8px; border-radius:12px; margin:1px 3px 1px 0;}
+  .tag.core{background:#fde8e8; color:var(--red);}
+  .tag.tool{background:#e7f0ff; color:var(--primary);}
+  .legend{font-size:12px; color:var(--muted); margin-top:10px;}
+  .tip{
+    background:#fff8e6; border-left:4px solid #f5a623; color:#6b5200;
+    padding:12px 16px; border-radius:0 8px 8px 0; margin-top:26px; font-size:13px;
+  }
+  .insight-link{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:16px; background:#eef4ff; color:var(--primary);
+    border:1px solid #cfe0ff; border-radius:8px; padding:10px 16px;
+    text-decoration:none; font-size:13px; font-weight:600;
+  }
+  .insight-link:hover{background:#dcebff; border-color:var(--primary);}
+  footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="author">
+    <span>👤 看板作者：A组全体成员</span>
+  </div>
+  <h1>🏭 消费品仓库 · 全流程运营可视化看板</h1>
+  <p>上海青浦站 · 鞋类 / 服装 / 配件 ｜ B2C / B2B 仓储全流程</p>
+  <div class="kpis">
+    <div class="kpi"><div class="num">6</div><div class="lbl">运营域</div></div>
+    <div class="kpi"><div class="num">26</div><div class="lbl">关键岗位任务</div></div>
+    <div class="kpi"><div class="num">RF枪</div><div class="lbl">核心工具</div></div>
+    <div class="kpi"><div class="num">WMS</div><div class="lbl">核心系统</div></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="toc">
+    <a href="#overview">🗺️ 全流程总览</a>
+    <a href="#receiving">📥 收货</a>
+    <a href="#putaway">📦 上架</a>
+    <a href="#count">🔍 盘点</a>
+    <a href="#dispatch">🚚 发货拣选</a>
+    <a href="#returns">↩️ 退货质检</a>
+    <a href="#edp">💻 EDP系统支撑</a>
+  </div>
+
+  <!-- 全流程总览 -->
+  <div class="card" id="overview">
+    <h2 class="colored">🗺️ 仓库全流程总览</h2>
+    <div class="desc">收货 → 上架 → 盘点 → 发货 → 退货逆向，由 EDP 系统全程支撑</div>
+    <div class="mermaid">
+flowchart LR
+    R[收货 Receiving] --> P[上架 Putaway]
+    P --> D[发货拣选 Picking]
+    D -.-> RT[退货质检 Returns]
+    C[库存盘点] -.影响.-> P
+    E[EDP 系统支撑] -.系统贯穿.-> R
+    E -.-> P
+    E -.-> D
+    E -.-> RT
+
+    style R fill:#2f81f7,color:#fff
+    style D fill:#238636,color:#fff
+    style RT fill:#f0883e,color:#fff
+    style E fill:#8250df,color:#fff
+    </div>
+  </div>
+
+  <!-- 收货 -->
+  <div class="card" id="receiving">
+    <h2 class="colored">📥 收货域 <span class="badge blue">Receiving</span></h2>
+    <div class="desc">从邀约到入库的完整收货闭环，含三方核对与不合格品处理</div>
+    <div class="mx"><div class="mermaid">
+flowchart LR
+    A([到货前准备\n邮件预约]) --> B[车辆外观检查\n停靠/封志]
+    B --> C[货物签收\n单据核对]
+    C --> D{抽检验收}
+    D -->|合格| E[RF 收货\n打印上架单]
+    D -->|不合格| F[差异反馈\n还原/照片]
+    E --> G([入库])
+    F --> G
+    style A fill:#2f81f7,color:#fff
+    </div></div>
+    <table>
+      <tr><th>序号</th><th>关键任务</th><th>操作要点</th></tr>
+      <tr><td>1</td><td>到货前工作准备</td><td>邮件预约登记、工作准备、入库订单跟踪表</td></tr>
+      <tr><td>2</td><td>来货车辆外观检查</td><td>停靠要求、送货人员监督、车尾/封志/车头/空箱照片</td></tr>
+      <tr><td>3</td><td>货物签收</td><td>到货信息/单据核对，独立完成交接签收</td></tr>
+      <tr><td>4</td><td>货品抽检标准</td><td>验收标准与流程、抽检确认清单</td></tr>
+      <tr><td>5</td><td>收货确认 (RF)</td><td>系统 RF 收货、绑箱、打印上架单</td></tr>
+      <tr><td>6</td><td>不合格品处理</td><td>破损/潮湿差异反馈、对应单据与照片</td></tr>
+    </table>
+    <a class="insight-link" href="receiving-insight.html">📄 查看收货现场洞察报告（实物动线 · 差异道堆积/搬运冲突/通道安全）→</a>
+  </div>
+
+  <!-- 上架 -->
+  <div class="card" id="putaway">
+    <h2 class="colored">📦 上架域 <span class="badge green">Putaway</span></h2>
+    <div class="desc">按库区类型完成整托/整箱/零散上架，遵守码放标准</div>
+    <div class="mx"><div class="mermaid">
+flowchart LR
+    A([RF枪接收任务]) --> B{任务类型}
+    B -->|整托| C[整托上架]
+    B -->|整箱| D[整箱上架]
+    B -->|零散| E[零散补库上架]
+    C & D & E --> F[按库位码放]
+    F --> G{码放标准}
+    G -->|符合| H[完成上架]
+    G -->|不符| I[调整码放] --> H
+    H --> J([库存更新])
+    style A fill:#238636,color:#fff
+    </div></div>
+    <table>
+      <tr><th>序号</th><th>关键任务</th><th>操作要点</th></tr>
+      <tr><td>1</td><td>RF 枪功能了解与使用</td><td>WMS 软件、独立操作</td></tr>
+      <tr><td>2</td><td>上架流程</td><td>整托 / 整箱 / 零散补库，含系统上架记录</td></tr>
+      <tr><td>3</td><td>库区货品码放要求</td><td>各库区码放标准、检查照片</td></tr>
+      <tr><td>4</td><td>库存盘点流程</td><td>WMS 快速盘点表、按货位盘点</td></tr>
+      <tr><td>5</td><td>异常处理</td><td>库存差异原因分析与处理方法</td></tr>
+    </table>
+  </div>
+
+  <!-- 盘点 -->
+  <div class="card" id="count">
+    <h2 class="colored">🔍 盘点域 <span class="badge blue">Inventory Count</span></h2>
+    <div class="desc">维持库存准确率，快速盘点并处理差异</div>
+    <div class="mx"><div class="mermaid">
+flowchart LR
+    A([创建快速盘点表]) --> B[选择盘点界面]
+    B --> C[输入盘点单号]
+    C --> D[扫描库位/货品]
+    D --> E{差异?}
+    E -->|无| F[确认无差异]
+    E -->|缺失/错位| G[差异分析]
+    G --> H[WMS反映差异]
+    F --> I([更新盘点表])
+    H --> I
+    style A fill:#2f81f7,color:#fff
+    </div></div>
+    <div class="legend"><span class="tag tool">交付物</span>RF截图 · 码放检查照 · 现场上架照 · 系统盘点表 · 差异处理</div>
+    <a class="insight-link" href="count-insight.html">📄 查看盘点现场洞察报告（账实不符 · 信息流时滞解析）→</a>
+  </div>
+
+  <!-- 发货拣选 -->
+  <div class="card" id="dispatch">
+    <h2 class="colored">🚚 发货拣选域 <span class="badge green">Picking / Dispatch</span></h2>
+    <div class="desc">订单波次 → 拣货 → 复核 → 打包 → 出库发运</div>
+    <div class="mx"><div class="mermaid">
+flowchart LR
+    A([订单波次生成]) --> B{订单类型}
+    B -->|整箱| C[整箱拣货]
+    B -->|零箱| D[零箱拣货]
+    B -->|服装| E[服装拣货]
+    C & D & E --> F[复核台复核]
+    F --> G[包装作业]
+    G --> H([发运])
+    style A fill:#238636,color:#fff
+    </div></div>
+    <table>
+      <tr><th>序号</th><th>关键任务</th><th>操作要点</th></tr>
+      <tr><td>1</td><td>复核台设备了解与使用</td><td>复核功能及对应设备操作</td></tr>
+      <tr><td>2</td><td>订单打印流程</td><td>订单波次生成及订单打印</td></tr>
+      <tr><td>3</td><td>包装 SOP</td><td>独立完成订单打包作业</td></tr>
+      <tr><td>4</td><td>整箱订单出库</td><td>整箱拣货复核打包发运</td></tr>
+      <tr><td>5</td><td>零箱订单出库</td><td>零箱拣货复核打包发运</td></tr>
+      <tr><td>6</td><td>服装订单出库</td><td>服装拣货复核打包发运</td></tr>
+    </table>
+  </div>
+
+  <!-- 退货质检 -->
+  <div class="card" id="returns">
+    <h2 class="colored">↩️ 退货质检域 <span class="badge orange">Returns / QC</span></h2>
+    <div class="desc">逆向物流：退件签收 → 质检分级 → 入库或报废</div>
+    <div class="mx"><div class="mermaid">
+flowchart LR
+    A([退货签收]) --> B[开箱验收]
+    B --> C{质检分级}
+    C -->|良品| D[重新入库]
+    C -->|报废| E[报废处理]
+    style A fill:#f0883e,color:#fff
+    </div></div>
+    <table>
+      <tr><th>序号</th><th>关键任务</th><th>操作要点</th></tr>
+      <tr><td>1</td><td>退货签收流程</td><td>退货类型及对应签收流程、照片</td></tr>
+      <tr><td>2</td><td>开箱验收</td><td>验收交接要求、清点拍照</td></tr>
+      <tr><td>3</td><td>退货质检标准</td><td>鞋子/配件/服装质检判断</td></tr>
+      <tr><td>4</td><td>RF 收货流程</td><td>退货入库交接、RF 系统入库</td></tr>
+      <tr><td>5</td><td>报废处理流程</td><td>报废品处理及风险点</td></tr>
+    </table>
+  </div>
+
+  <!-- EDP系统 -->
+  <div class="card" id="edp">
+    <h2 class="colored">💻 EDP 系统支撑域 <span class="badge purple">EDP Support</span></h2>
+    <div class="desc">系统/数据/单据管控，贯穿全流程</div>
+    <div class="mx"><div class="mermaid">
+flowchart LR
+    A([收货文件\n预约/导入]) --> B[订单下发\n波次原则]
+    B --> C[监控时效]
+    C --> D{异常?}
+    D -->|否| E[发货报告]
+    D -->|是| F[异常处理] --> E
+    E --> G[数据报表]
+    G --> H([随货单据处理])
+    style A fill:#8250df,color:#fff
+    </div></div>
+    <table>
+      <tr><th>序号</th><th>关键任务</th><th>操作要点</th></tr>
+      <tr><td>1</td><td>收货文件</td><td>预约登记表、导入设备流水线文件</td></tr>
+      <tr><td>2</td><td>订单下发</td><td>波次下发原则、处理时效、异常处理</td></tr>
+      <tr><td>3</td><td>数据报表处理</td><td>仓内各类报表模板、发货报告</td></tr>
+      <tr><td>4</td><td>随货单据处理</td><td>单据类型、重要性、存档规则</td></tr>
+    </table>
+  </div>
+
+  <div class="tip">
+    💡 <strong>数据来源</strong>：本看板依据仓库《MT评价表》《培养计划》整理的真实岗位任务与考核标准绘制，业务细节请以现场实际 SOP 为准。
+  </div>
+
+</div>
+
+<footer>消费品仓库全流程运营看板 · 数据整理自现场文档</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad:true,
+    theme:'neutral',
+    securityLevel:'loose',
+    flowchart:{ useMaxWidth:false, htmlLabels:true, curve:'basis' }
+  });
+</script>
+</body>
+</html>
