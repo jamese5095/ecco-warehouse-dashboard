@@ -69,7 +69,7 @@
         </div>
       </div>
       <form class="scenario-form" id="scenario-form">
-        <label>目标日期<input id="target-date" type="date" value="2026-08-31" required></label>
+        <label>目标日期<input id="target-date" type="date" min="2026-08-01" value="2026-08-31" required></label>
         <label>预计入库量<div class="field-unit"><input id="inbound" inputmode="numeric" value="200000" aria-label="预计入库量，单位双"><span>双</span></div></label>
         <label>预计出库量<div class="field-unit"><input id="outbound" inputmode="numeric" value="120000" aria-label="预计出库量，单位双"><span>双</span></div></label>
         <button type="submit">生成未来仓储预估 →</button>
@@ -82,24 +82,104 @@
         <div><div class="sim-label">预估结果 · <span id="result-date">2026年8月31日</span></div><h2 id="result-headline">总体正常，仍有可用空间</h2></div>
         <div class="result-grade"><strong id="result-grade">B</strong><span id="result-grade-label">状态正常</span></div>
       </div>
-      <div class="result-metrics-sim">
-        <div><span>预计库存</span><strong id="result-total">1,075,410 双</strong><small id="result-delta">↑ 比现在多 80,000 双</small></div>
-        <div><span>预计总利用率</span><strong id="result-utilization">81.8%</strong><small>当前为 75.7%</small></div>
-        <div><span id="result-remaining-label">预计还能存放</span><strong id="result-remaining">239,445 双</strong><small id="result-remaining-note">整托与散货合计</small></div>
-      </div>
-      <div class="result-detail-grid">
-        <article class="forecast-panel">
-          <div class="forecast-head"><h3>现在与未来对比</h3><span>灰色为现在 · 红色为预估</span></div>
-          <div class="forecast-row-sim"><div class="forecast-name"><b>整托区</b><span id="pallet-inventory">预计 705,305 双</span></div><div class="compare-wrap"><div class="compare-track current"><span style="width:75%"></span></div><div class="compare-track"><span id="pallet-forecast" style="width:82.8%"></span></div></div><strong id="pallet-percent">82.8%</strong></div>
-          <div class="forecast-row-sim"><div class="forecast-name"><b>散货区</b><span id="loose-inventory">预计 370,105 双</span></div><div class="compare-wrap"><div class="compare-track current"><span style="width:77%"></span></div><div class="compare-track"><span id="loose-forecast" style="width:79.9%"></span></div></div><strong id="loose-percent">79.9%</strong></div>
+
+      <div class="sandbox-layout">
+        <article class="warehouse-sandbox">
+          <div class="sandbox-head"><div><div class="sim-label">仓库压力沙盘</div><h3>空间压力如何变化？</h3></div><span>虚线为85%警戒线</span></div>
+          <div class="warehouse-scenes">
+            <div class="warehouse-scene">
+              <div class="scene-label"><span>当前</span><b>7月31日</b></div>
+              <div class="warehouse-frame" aria-label="当前整托区利用率75%，散货区利用率77%">
+                <div class="pressure-zone pallet-zone">
+                  <span class="warning-line"></span>
+                  <span class="zone-fill current" style="height:75%"></span>
+                  <div class="zone-caption"><b>整托区</b><span>75%</span></div>
+                </div>
+                <div class="pressure-zone loose-zone">
+                  <span class="warning-line"></span>
+                  <span class="zone-fill current" style="height:77%"></span>
+                  <div class="zone-caption"><b>散货区</b><span>77%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scene-arrow" aria-hidden="true">→</div>
+
+            <div class="warehouse-scene forecast-scene">
+              <div class="scene-label"><span>预估</span><b id="scene-target-date">8月31日</b></div>
+              <div class="warehouse-frame" id="future-warehouse" aria-label="目标日期仓库压力预估">
+                <div class="pressure-zone pallet-zone">
+                  <span class="warning-line"></span>
+                  <span class="zone-fill forecast" id="pallet-forecast" style="height:82.8%"></span>
+                  <span class="overflow-signal" id="pallet-overflow-signal">超载</span>
+                  <div class="zone-caption"><b>整托区</b><span id="pallet-percent">82.8%</span></div>
+                </div>
+                <div class="pressure-zone loose-zone">
+                  <span class="warning-line"></span>
+                  <span class="zone-fill forecast" id="loose-forecast" style="height:79.9%"></span>
+                  <span class="overflow-signal" id="loose-overflow-signal">超载</span>
+                  <div class="zone-caption"><b>散货区</b><span id="loose-percent">79.9%</span></div>
+                </div>
+              </div>
+              <div class="future-zone-values"><span id="pallet-inventory">整托 705,297 双</span><span id="loose-inventory">散货 370,113 双</span></div>
+            </div>
+          </div>
+          <div class="sandbox-legend"><span><i class="current"></i>7月底库存</span><span><i class="forecast"></i>目标日期预估</span><span><i class="empty"></i>可用空间</span></div>
         </article>
-        <article class="interpret-panel">
+
+        <article class="decision-panel">
           <div class="interpret-title"><span>AI</span><div><div class="sim-label">智能解读</div><h3>这个结果意味着什么？</h3></div></div>
           <p id="interpretation">按照当前库存和输入的进出库计划，2026年8月31日预计库存为1,075,410双。整托区压力最高，预计利用率为82.8%。</p>
+          <div class="physical-impact"><span id="impact-label">现场含义</span><strong id="impact-value">整托区仍有约1,015个托位</strong><small id="impact-note">将抽象库存变化换算成现场空间</small></div>
+          <div class="decision-stats">
+            <div><span>预计库存</span><strong id="result-total">1,075,410 双</strong><small id="result-delta">↑ 比现在多 80,000 双</small></div>
+            <div><span>预计总利用率</span><strong id="result-utilization">81.8%</strong><small>当前为75.7%</small></div>
+            <div><span id="result-remaining-label">预计还能存放</span><strong id="result-remaining">239,445 双</strong><small id="result-remaining-note">整托与散货合计</small></div>
+          </div>
           <div class="advice"><b>建议关注</b><p id="advice-copy">优先关注整托区；如入库高度集中，可考虑分批到仓。</p></div>
         </article>
       </div>
-      <div class="formula-note"><span>未来库存 = 7月31日库存 + 预计入库 − 预计出库</span><span>智能解读当前由规则生成</span><span>Demo情景，非实时WMS数据</span></div>
+
+      <div class="data-story-grid">
+        <article class="intensity-card">
+          <div class="story-head"><div><div class="sim-label">业务强度标尺</div><h3>这次计划有多激进？</h3></div><strong id="daily-inbound">9,524 双/工作日</strong></div>
+          <p id="intensity-copy">计划日均入库约为7月正常水平的0.43倍。</p>
+          <div class="intensity-ruler" aria-label="计划日均入库与7月日均和峰值对比">
+            <span class="ruler-line"></span>
+            <span class="ruler-point average" style="left:46.1%"><i></i><b>7月日均</b><small>22,372</small></span>
+            <span class="ruler-point plan" id="plan-intensity-marker" style="left:19.6%"><i></i><b>本次计划</b><small id="plan-intensity-value">9,524</small></span>
+            <span class="ruler-point peak" style="left:100%"><i></i><b>7月峰值</b><small>48,511</small></span>
+          </div>
+          <span class="workday-note" id="workday-note">按目标日期前21个工作日计算</span>
+        </article>
+
+        <article class="timeline-card">
+          <div class="story-head"><div><div class="sim-label">压力时间线</div><h3 id="pressure-zone-title">整托区何时进入警戒？</h3></div><span id="timeline-summary">目标日期前暂不超载</span></div>
+          <div class="pressure-timeline">
+            <span class="timeline-line"></span>
+            <span class="timeline-marker start" style="left:0"><i></i></span>
+            <span class="timeline-marker warning" id="warning-marker"><i></i></span>
+            <span class="timeline-marker capacity" id="capacity-marker"><i></i></span>
+            <span class="timeline-marker target" style="left:100%"><i></i></span>
+          </div>
+          <div class="timeline-labels">
+            <div><span>当前</span><b>7月31日</b></div>
+            <div><span>85%警戒</span><b id="warning-date">目标期内未触及</b></div>
+            <div><span>100%容量</span><b id="capacity-date">目标期内未触及</b></div>
+            <div><span>目标日期</span><b id="timeline-target-date">8月31日</b></div>
+          </div>
+        </article>
+      </div>
+
+      <details class="model-basis">
+        <summary>查看本次预估依据 <span>数据、比例与公式</span></summary>
+        <div class="basis-grid">
+          <div><span>库存基准</span><b>2026年7月31日</b><small>整托638,604双 · 散货356,806双</small></div>
+          <div><span>区域容量</span><b>1,314,855双</b><small>整托851,472双 · 散货463,383双</small></div>
+          <div><span>历史分流</span><b>按7月比例自动分配</b><small>入库与出库分别使用历史区域比例</small></div>
+          <div><span>计算关系</span><b>当前库存 + 入库 − 出库</b><small>智能解读当前由规则生成</small></div>
+        </div>
+      </details>
     </section>
 
     <section class="simulation-boundary sim-section" aria-labelledby="simulation-boundary-title">
