@@ -31,7 +31,7 @@
 .portal-section { padding: clamp(58px, 8vw, 92px) 0 0; }
 .section-intro { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 60px; margin-bottom: 30px; }
 .section-label { margin-bottom: 9px; color: var(--sf-red); font-size: 11px; font-weight: 850; letter-spacing: .1em; }
-.section-intro h2, .portal-boundary h2, .insight-section h2 { font-size: clamp(29px, 4.5vw, 48px); line-height: 1.13; letter-spacing: -.04em; }
+.section-intro h2, .insight-section h2 { font-size: clamp(29px, 4.5vw, 48px); line-height: 1.13; letter-spacing: -.04em; }
 .section-intro > p { margin: 0; color: var(--muted); line-height: 1.8; }
 
 .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -57,16 +57,6 @@
 .value-strip h3 { margin-top: 55px; font-size: 21px; }
 .value-strip p { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
 
-.portal-boundary { margin-top: clamp(58px, 8vw, 92px); padding: clamp(32px, 6vw, 58px); color: #fff; background: #272727; border-radius: 22px; }
-.boundary-lead { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 70px; }
-.portal-boundary .section-label { color: #ff6666; }
-.boundary-lead > p { margin: 0; color: #bdbdbd; line-height: 1.8; }
-.boundary-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 36px; }
-.boundary-stages article { min-height: 220px; padding: 24px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; }
-.boundary-stages span { color: #ff6666; font-size: 10px; font-weight: 850; }
-.boundary-stages h3 { margin-top: 38px; font-size: 18px; }
-.boundary-stages p { margin: 10px 0 0; color: #aaa; font-size: 12px; line-height: 1.7; }
-
 .insight-section { padding-top: clamp(58px, 8vw, 92px); }
 .insight-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 28px; }
 .insight-heading > p { max-width: 390px; margin: 0; color: var(--muted); line-height: 1.75; }
@@ -84,7 +74,7 @@
   .portal-hero-grid { grid-template-columns: 1fr; gap: 28px; padding: 68px 0 54px; }
   .portal-credit { min-height: 0; }
   .portal-credit dl { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 38px; }
-  .section-intro, .boundary-lead { grid-template-columns: 1fr; gap: 18px; }
+  .section-intro { grid-template-columns: 1fr; gap: 18px; }
   .module-grid, .insight-grid { grid-template-columns: 1fr; }
   .module-card { min-height: 360px; }
 }
@@ -99,8 +89,8 @@
   .global-nav-links { width: 100%; overflow-x: auto; }
   .module-card { min-height: 350px; padding: 25px; border-radius: 16px; }
   .module-card h3 { margin-top: 40px; }
-  .value-strip, .boundary-stages { grid-template-columns: 1fr; }
-  .value-strip article, .boundary-stages article { min-height: 0; }
-  .value-strip h3, .boundary-stages h3 { margin-top: 28px; }
+  .value-strip { grid-template-columns: 1fr; }
+  .value-strip article { min-height: 0; }
+  .value-strip h3 { margin-top: 28px; }
   .insight-heading, .portal-footer { align-items: flex-start; flex-direction: column; }
 }

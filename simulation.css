@@ -95,12 +95,27 @@
 .results-panel.good .result-grade { color: #4f5653; background: #eceeee; }
 .results-panel.good .result-grade strong { background: #555d59; }
 
+.simulation-boundary { padding: clamp(30px, 5vw, 52px); color: #fff; background: #272727; border: 1px solid #333; border-radius: 20px; box-shadow: var(--shadow); }
+.simulation-boundary-lead { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 70px; }
+.simulation-boundary .sim-label { color: #ff6666; }
+.simulation-boundary h2 { font-size: clamp(28px, 4vw, 43px); line-height: 1.14; letter-spacing: -.04em; }
+.simulation-boundary-lead > p { margin: 0; color: #bdbdbd; font-size: 13px; line-height: 1.8; }
+.simulation-boundary-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 36px; }
+.simulation-boundary-stages article { min-height: 210px; padding: 24px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; }
+.simulation-boundary-stages span { color: #ff6666; font-size: 10px; font-weight: 850; }
+.simulation-boundary-stages h3 { margin-top: 38px; font-size: 18px; }
+.simulation-boundary-stages p { margin: 10px 0 0; color: #aaa; font-size: 12px; line-height: 1.7; }
+.simulation-boundary-note { display: flex; align-items: center; gap: 14px; margin-top: 14px; padding: 14px 16px; background: rgba(230,0,0,.1); border: 1px solid rgba(255,102,102,.22); border-radius: 11px; }
+.simulation-boundary-note b { color: #ff6666; font-size: 11px; white-space: nowrap; }
+.simulation-boundary-note span { color: #ccc; font-size: 11px; }
+
 .sim-footer { display: flex; justify-content: space-between; gap: 30px; }
 .sim-footer p { margin: 0; }
 
 @media (max-width: 880px) {
   .sim-header-shell, .sim-main { width: min(100% - 24px, 720px); }
-  .sim-hero, .current-grid, .planner, .result-detail-grid { grid-template-columns: 1fr; }
+  .sim-hero, .current-grid, .planner, .result-detail-grid, .simulation-boundary-lead { grid-template-columns: 1fr; }
+  .simulation-boundary-lead { gap: 18px; }
   .sim-boundary { justify-self: start; max-width: none; }
 }
 
@@ -118,4 +133,8 @@
   .forecast-row-sim { grid-template-columns: 1fr 50px; }
   .forecast-name { grid-column: 1 / -1; }
   .formula-note span:last-child { margin-left: 0; }
+  .simulation-boundary-stages { grid-template-columns: 1fr; }
+  .simulation-boundary-stages article { min-height: 0; }
+  .simulation-boundary-stages h3 { margin-top: 28px; }
+  .simulation-boundary-note { align-items: flex-start; flex-direction: column; gap: 5px; }
 }

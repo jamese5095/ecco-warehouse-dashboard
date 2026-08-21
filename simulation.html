@@ -25,7 +25,7 @@
           <h1>鞋品仓储状态模拟器</h1>
           <p>输入计划中的入库量和出库量，预估目标日期的库存、空间压力和风险等级。</p>
         </div>
-        <div class="sim-boundary"><b>当前版本边界</b>基于2026年7月静态数据进行产品体验验证，不是实时WMS事实，也不代表仓库正式履约承诺。</div>
+        <div class="sim-boundary"><b>当前数据版本</b>2026年7月 · 鞋类静态数据 · 产品体验验证阶段</div>
       </div>
     </div>
   </header>
@@ -100,6 +100,22 @@
         </article>
       </div>
       <div class="formula-note"><span>未来库存 = 7月31日库存 + 预计入库 − 预计出库</span><span>智能解读当前由规则生成</span><span>Demo情景，非实时WMS数据</span></div>
+    </section>
+
+    <section class="simulation-boundary sim-section" aria-labelledby="simulation-boundary-title">
+      <div class="simulation-boundary-lead">
+        <div>
+          <div class="sim-label">项目边界 · PROJECT BOUNDARY</div>
+          <h2 id="simulation-boundary-title">当前是静态数据 Demo，<br>还不是实时事实看板。</h2>
+        </div>
+        <p>当前版本基于仓库2026年7月人工收集的数据，用于验证产品界面和模拟逻辑。只有接入WMS并持续获得完整数据，才能形成更加真实有效的事实看板。</p>
+      </div>
+      <div class="simulation-boundary-stages">
+        <article><span>阶段 01 · 当前</span><h3>7月静态 Demo</h3><p>验证非仓储人员能否快速看懂当前状态，并完成未来进出库情景输入。</p></article>
+        <article><span>阶段 02 · 接入</span><h3>WMS 事实看板</h3><p>通过完整、准确、统一口径的数据，减少人工更新造成的滞后和偏差。</p></article>
+        <article><span>阶段 03 · 未来</span><h3>日级压力评估</h3><p>数据按日更新后，可结合最新库存评估突发大批量入库造成的真实压力。</p></article>
+      </div>
+      <div class="simulation-boundary-note"><b>重要说明</b><span>本页评级仅用于产品验证和情景讨论，不代表仓库正式履约承诺。</span></div>
     </section>
   </main>
 
