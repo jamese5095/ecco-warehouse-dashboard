@@ -23,45 +23,18 @@
         <div>
           <div class="sim-kicker">决策模拟模块 · SIMULATION</div>
           <h1>鞋品仓储状态模拟器</h1>
-          <p>输入计划中的入库量和出库量，预估目标日期的库存、空间压力和风险等级。</p>
+          <p>输入进出库计划，直接查看目标日期的仓库压力。</p>
         </div>
-        <div class="sim-boundary"><b>当前数据版本</b>2026年7月 · 鞋类静态数据 · 产品体验验证阶段</div>
+        <div class="sim-version"><b>7月静态 Demo</b><span>鞋类 · 产品验证阶段</span></div>
       </div>
     </div>
   </header>
 
   <main class="sim-main">
-    <section class="sim-section" aria-labelledby="current-title">
-      <div class="sim-heading">
-        <div><div class="sim-label">当前状态 · CURRENT STATE</div><h2 id="current-title">截至7月31日，仓库怎么样？</h2></div>
-        <span class="data-stamp">鞋类静态数据快照 · 单位：双</span>
-      </div>
-      <div class="current-grid">
-        <article class="current-status">
-          <div class="grade-line">当前状态正常<strong>B</strong></div>
-          <strong>75.7%</strong>
-          <p>仓库已经使用的鞋类容量</p>
-          <div class="util-track" aria-label="总体库容利用率75.7%"><span style="width:75.7%"></span></div>
-          <div class="current-numbers">
-            <div><span>当前库存</span><b>995,410 双</b></div>
-            <div><span>总库容</span><b>1,314,855 双</b></div>
-            <div><span>还能存放</span><b>319,445 双</b></div>
-          </div>
-        </article>
-        <article class="zone-panel">
-          <div class="zone-panel-head"><div><div class="sim-label">区域情况</div><h2>两个区域都在正常范围</h2></div><span>散货区压力略高</span></div>
-          <div class="zone-row-sim"><div class="zone-copy-sim"><b>整托区</b><span>638,604 / 851,472 双</span></div><div class="zone-track"><span style="width:75%"></span></div><strong>75%</strong></div>
-          <div class="zone-row-sim"><div class="zone-copy-sim"><b>散货区</b><span>356,806 / 463,383 双</span></div><div class="zone-track"><span style="width:77%"></span></div><strong>77%</strong></div>
-          <p class="zone-note">简单理解：目前每100个鞋类库位中，大约已经使用76个。</p>
-        </article>
-      </div>
-    </section>
-
     <section class="planner sim-section" aria-labelledby="planner-title">
       <div class="planner-intro">
-        <div class="sim-label">情景输入 · SCENARIO</div>
-        <h2 id="planner-title">未来可能怎么样？</h2>
-        <p>输入从7月31日到目标日期的累计进出库量，快速查看仓储压力。</p>
+        <div class="sim-label">情景模拟</div>
+        <h2 id="planner-title">输入未来计划</h2>
         <div class="preset-list" aria-label="情景快捷选择">
           <button type="button" data-inbound="200000" data-outbound="120000">常规计划</button>
           <button type="button" data-inbound="400000" data-outbound="100000">入库高峰</button>
@@ -85,50 +58,35 @@
 
       <div class="sandbox-layout">
         <article class="warehouse-sandbox">
-          <div class="sandbox-head"><div><div class="sim-label">仓库压力沙盘</div><h3>空间压力如何变化？</h3></div><span>虚线为85%警戒线</span></div>
-          <div class="warehouse-scenes">
-            <div class="warehouse-scene">
-              <div class="scene-label"><span>当前</span><b>7月31日</b></div>
-              <div class="warehouse-frame" aria-label="当前整托区利用率75%，散货区利用率77%">
-                <div class="pressure-zone pallet-zone">
-                  <span class="warning-line"></span>
-                  <span class="zone-fill current" style="height:75%"></span>
-                  <div class="zone-caption"><b>整托区</b><span>75%</span></div>
-                </div>
-                <div class="pressure-zone loose-zone">
-                  <span class="warning-line"></span>
-                  <span class="zone-fill current" style="height:77%"></span>
-                  <div class="zone-caption"><b>散货区</b><span>77%</span></div>
-                </div>
+          <div class="sandbox-head"><div><div class="sim-label">区域压力</div><h3>仓库容量视图</h3></div><b id="scene-target-date">8月31日</b></div>
+          <div class="rack-visual" id="future-warehouse" aria-label="目标日期仓库压力预估">
+            <div class="rack-zone-card pallet-rack">
+              <div class="rack-zone-head"><span>整托区</span><strong id="pallet-percent">82.8%</strong></div>
+              <div class="capacity-rack">
+                <span class="rack-fill" id="pallet-forecast" style="height:82.8%"></span>
+                <span class="rack-current" style="bottom:75%"><i>当前 75%</i></span>
+                <span class="rack-warning" style="bottom:85%"><i>警戒</i></span>
+                <span class="rack-grid-lines"></span>
+                <span class="overflow-signal" id="pallet-overflow-signal">超载</span>
               </div>
+              <b class="rack-inventory" id="pallet-inventory">705,297 双</b>
             </div>
-
-            <div class="scene-arrow" aria-hidden="true">→</div>
-
-            <div class="warehouse-scene forecast-scene">
-              <div class="scene-label"><span>预估</span><b id="scene-target-date">8月31日</b></div>
-              <div class="warehouse-frame" id="future-warehouse" aria-label="目标日期仓库压力预估">
-                <div class="pressure-zone pallet-zone">
-                  <span class="warning-line"></span>
-                  <span class="zone-fill forecast" id="pallet-forecast" style="height:82.8%"></span>
-                  <span class="overflow-signal" id="pallet-overflow-signal">超载</span>
-                  <div class="zone-caption"><b>整托区</b><span id="pallet-percent">82.8%</span></div>
-                </div>
-                <div class="pressure-zone loose-zone">
-                  <span class="warning-line"></span>
-                  <span class="zone-fill forecast" id="loose-forecast" style="height:79.9%"></span>
-                  <span class="overflow-signal" id="loose-overflow-signal">超载</span>
-                  <div class="zone-caption"><b>散货区</b><span id="loose-percent">79.9%</span></div>
-                </div>
+            <div class="rack-zone-card loose-rack">
+              <div class="rack-zone-head"><span>散货区</span><strong id="loose-percent">79.9%</strong></div>
+              <div class="capacity-rack">
+                <span class="rack-fill" id="loose-forecast" style="height:79.9%"></span>
+                <span class="rack-current" style="bottom:77%"><i>当前 77%</i></span>
+                <span class="rack-warning" style="bottom:85%"><i>警戒</i></span>
+                <span class="rack-grid-lines"></span>
+                <span class="overflow-signal" id="loose-overflow-signal">超载</span>
               </div>
-              <div class="future-zone-values"><span id="pallet-inventory">整托 705,297 双</span><span id="loose-inventory">散货 370,113 双</span></div>
+              <b class="rack-inventory" id="loose-inventory">370,113 双</b>
             </div>
           </div>
-          <div class="sandbox-legend"><span><i class="current"></i>7月底库存</span><span><i class="forecast"></i>目标日期预估</span><span><i class="empty"></i>可用空间</span></div>
         </article>
 
         <article class="decision-panel">
-          <div class="interpret-title"><span>AI</span><div><div class="sim-label">智能解读</div><h3>这个结果意味着什么？</h3></div></div>
+          <div class="interpret-title"><span>AI</span><div><div class="sim-label">结论</div><h3>这个结果意味着什么？</h3></div></div>
           <p id="interpretation">按照当前库存和输入的进出库计划，2026年8月31日预计库存为1,075,410双。整托区压力最高，预计利用率为82.8%。</p>
           <div class="physical-impact"><span id="impact-label">现场含义</span><strong id="impact-value">整托区仍有约1,015个托位</strong><small id="impact-note">将抽象库存变化换算成现场空间</small></div>
           <div class="decision-stats">
@@ -182,21 +140,14 @@
       </details>
     </section>
 
-    <section class="simulation-boundary sim-section" aria-labelledby="simulation-boundary-title">
-      <div class="simulation-boundary-lead">
-        <div>
-          <div class="sim-label">项目边界 · PROJECT BOUNDARY</div>
-          <h2 id="simulation-boundary-title">当前是静态数据 Demo，<br>还不是实时事实看板。</h2>
-        </div>
-        <p>当前版本基于仓库2026年7月人工收集的数据，用于验证产品界面和模拟逻辑。只有接入WMS并持续获得完整数据，才能形成更加真实有效的事实看板。</p>
+    <details class="boundary-compact sim-section">
+      <summary>数据范围与项目边界 <span>7月静态 Demo</span></summary>
+      <div class="boundary-compact-content">
+        <div><h2>不是实时事实看板</h2><p>当前结果基于2026年7月人工采集数据，仅用于产品验证。</p></div>
+        <div class="boundary-route"><span>当前 · 静态Demo</span><span>下一步 · 接入WMS</span><span>未来 · 日级评估</span></div>
+        <b>不代表仓库正式履约承诺</b>
       </div>
-      <div class="simulation-boundary-stages">
-        <article><span>阶段 01 · 当前</span><h3>7月静态 Demo</h3><p>验证非仓储人员能否快速看懂当前状态，并完成未来进出库情景输入。</p></article>
-        <article><span>阶段 02 · 接入</span><h3>WMS 事实看板</h3><p>通过完整、准确、统一口径的数据，减少人工更新造成的滞后和偏差。</p></article>
-        <article><span>阶段 03 · 未来</span><h3>日级压力评估</h3><p>数据按日更新后，可结合最新库存评估突发大批量入库造成的真实压力。</p></article>
-      </div>
-      <div class="simulation-boundary-note"><b>重要说明</b><span>本页评级仅用于产品验证和情景讨论，不代表仓库正式履约承诺。</span></div>
-    </section>
+    </details>
   </main>
 
   <footer class="sim-footer">

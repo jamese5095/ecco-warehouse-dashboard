@@ -166,8 +166,8 @@ function calculate() {
   document.querySelector("#result-remaining-label").textContent = shortage > 0 ? "预计出库缺口" : remaining >= 0 ? (overflow > 0 ? "合计名义余量" : "预计还能存放") : "预计超出容量";
   document.querySelector("#result-remaining").textContent = `${number(shortage > 0 ? shortage : Math.abs(remaining))} 双`;
   document.querySelector("#result-remaining-note").textContent = shortage > 0 ? "计划无法完整履约" : overflow > 0 ? `${pressureZone.label}仍存在空间缺口` : "整托与散货合计";
-  document.querySelector("#pallet-inventory").textContent = `整托 ${number(pallet)} 双`;
-  document.querySelector("#loose-inventory").textContent = `散货 ${number(loose)} 双`;
+  document.querySelector("#pallet-inventory").textContent = `${number(pallet)} 双`;
+  document.querySelector("#loose-inventory").textContent = `${number(loose)} 双`;
   document.querySelector("#pallet-percent").textContent = percent(palletUtilization);
   document.querySelector("#loose-percent").textContent = percent(looseUtilization);
   document.querySelector("#pallet-forecast").style.height = visualSize(palletUtilization);
