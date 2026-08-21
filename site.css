@@ -1,8 +1,8 @@
 :root {
-  --primary: #dc1e32 !important;
+  --primary: #e60000 !important;
   --green: #68706b !important;
   --orange: #d97832 !important;
-  --red: #dc1e32 !important;
+  --red: #e60000 !important;
   --purple: #665f59;
   --bg: #f3f4f4 !important;
   --card: #ffffff !important;
@@ -11,9 +11,9 @@
   --border: #e0e2e2 !important;
   --hero: #232323;
   --hero-soft: #2c2c2c;
-  --soft-green: #fbecef;
+  --soft-green: #fff0f0;
   --soft-amber: #f7eee8;
-  --sf-red: #dc1e32;
+  --sf-red: #e60000;
   --shadow: 0 18px 48px rgba(30, 35, 33, .07);
 }
 
@@ -22,7 +22,7 @@ html { scroll-behavior: smooth; }
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 8% 0%, rgba(220, 30, 50, .055), transparent 28%),
+    radial-gradient(circle at 8% 0%, rgba(230, 0, 0, .05), transparent 28%),
     var(--bg) !important;
   color: var(--text) !important;
   font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif !important;
@@ -30,7 +30,7 @@ body {
 }
 
 a, button { -webkit-tap-highlight-color: transparent; }
-a:focus-visible { outline: 3px solid rgba(212, 5, 17, .22); outline-offset: 3px; }
+a:focus-visible { outline: 3px solid rgba(230, 0, 0, .22); outline-offset: 3px; }
 
 header {
   position: relative;
@@ -44,7 +44,7 @@ header::before { position: absolute; inset: 0 0 auto; content: ""; height: 5px; 
 .home-page header { padding: 0 !important; }
 .hero-shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 24px 0 0; }
 .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.hero-brand { color: #ef6675; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.hero-brand { color: #ff6666; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 
 header .author {
   position: static !important;
@@ -60,7 +60,7 @@ header .author {
 }
 
 .hero-copy { max-width: 1000px; padding: clamp(38px, 5.5vw, 62px) 0 38px; }
-.hero-copy .hero-label { margin: 0 0 14px; color: #ef6675; font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+.hero-copy .hero-label { margin: 0 0 14px; color: #ff6666; font-size: 12px; font-weight: 800; letter-spacing: .1em; }
 header h1 {
   max-width: 100%;
   margin: 0 !important;
@@ -125,11 +125,11 @@ header .kpi .lbl { margin-top: 2px; color: #aaa69c; font-size: 11px !important; 
   background: #252525;
   border-radius: 18px;
 }
-.reading-guide .guide-label { margin-bottom: 8px; color: #ef6675; font-size: 11px; font-weight: 800; letter-spacing: .1em; }
+.reading-guide .guide-label { margin-bottom: 8px; color: #ff6666; font-size: 11px; font-weight: 800; letter-spacing: .1em; }
 .reading-guide h2 { font-size: clamp(23px, 3vw, 32px); line-height: 1.2; }
 .guide-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .guide-steps div { padding: 14px; background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; }
-.guide-steps span { color: #ef6675; font-size: 10px; font-weight: 800; }
+.guide-steps span { color: #ff6666; font-size: 10px; font-weight: 800; }
 .guide-steps b { display: block; margin-top: 16px; font-size: 14px; }
 .guide-steps p { margin: 6px 0 0; color: #b7b2a8; font-size: 11px; line-height: 1.55; }
 
@@ -192,7 +192,7 @@ footer { width: min(1120px, calc(100% - 40px)); margin: 0 auto 26px !important; 
 .report-page header { padding: 72px 24px 56px !important; }
 .report-page header .back { top: 22px !important; color: #e5e1d8 !important; background: rgba(255,255,255,.06) !important; border-color: rgba(255,255,255,.14) !important; box-shadow: none !important; }
 .report-page header .back:hover { background: rgba(255,255,255,.12) !important; }
-.report-page header .domain { padding: 5px 11px !important; color: #f17885; background: rgba(220,30,50,.1) !important; border: 1px solid rgba(220,30,50,.22); font-size: 11px !important; font-weight: 800; letter-spacing: .05em; }
+.report-page header .domain { padding: 5px 11px !important; color: #ff7070; background: rgba(230,0,0,.1) !important; border: 1px solid rgba(230,0,0,.24); font-size: 11px !important; font-weight: 800; letter-spacing: .05em; }
 .report-page header h1 { max-width: 900px; margin: 14px auto 0 !important; font-size: clamp(32px, 5vw, 52px) !important; text-align: center; }
 .report-page header p { margin: 14px auto 0 !important; text-align: center; }
 .report-page .container { width: min(960px, calc(100% - 40px)); }
