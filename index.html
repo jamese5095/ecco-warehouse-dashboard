@@ -91,26 +91,34 @@
   .insight-link:hover{background:#dcebff; border-color:var(--primary);}
   footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
 </style>
+<link rel="stylesheet" href="site.css">
 </head>
-<body>
+<body class="home-page">
 
 <header>
-  <div class="author">
-    <span>👤 看板作者：A组全体成员</span>
-  </div>
-  <h1>🏭 消费品仓库 · 全流程运营可视化看板</h1>
-  <p>上海青浦站 · 鞋类 / 服装 / 配件 ｜ B2C / B2B 仓储全流程</p>
-  <div class="kpis">
-    <div class="kpi"><div class="num">6</div><div class="lbl">运营域</div></div>
-    <div class="kpi"><div class="num">26</div><div class="lbl">关键岗位任务</div></div>
-    <div class="kpi"><div class="num">RF枪</div><div class="lbl">核心工具</div></div>
-    <div class="kpi"><div class="num">WMS</div><div class="lbl">核心系统</div></div>
+  <div class="hero-shell">
+    <div class="hero-top">
+      <span class="hero-brand">SF Qingpu · Warehouse Operations</span>
+      <div class="author"><span>项目成员：A组全体成员</span></div>
+    </div>
+    <div class="hero-copy">
+      <div class="hero-label">消费品仓库 · 运营流程知识看板</div>
+      <h1>一张看板，理解仓库如何运转。</h1>
+      <p>以上海青浦站为案例，将鞋类、服装与配件的 B2B / B2C 仓储流程，整理为可浏览、可下钻的运营知识地图。</p>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="num">6</div><div class="lbl">运营域</div></div>
+      <div class="kpi"><div class="num">26</div><div class="lbl">关键岗位任务</div></div>
+      <div class="kpi"><div class="num">RF 枪</div><div class="lbl">核心作业工具</div></div>
+      <div class="kpi"><div class="num">WMS</div><div class="lbl">核心信息系统</div></div>
+    </div>
   </div>
 </header>
 
 <div class="container">
 
   <div class="toc">
+    <span class="toc-label">快速导航</span>
     <a href="#overview">🗺️ 全流程总览</a>
     <a href="#receiving">📥 收货</a>
     <a href="#putaway">📦 上架</a>
@@ -119,6 +127,18 @@
     <a href="#returns">↩️ 退货质检</a>
     <a href="#edp">💻 EDP系统支撑</a>
   </div>
+
+  <section class="reading-guide" aria-label="看板阅读方法">
+    <div>
+      <div class="guide-label">HOW TO READ</div>
+      <h2>从全局流程，到现场问题。</h2>
+    </div>
+    <div class="guide-steps">
+      <div><span>01</span><b>先看全流程</b><p>建立收货、库存与发货之间的整体关系。</p></div>
+      <div><span>02</span><b>再选运营域</b><p>查看各环节的岗位任务、工具与操作要点。</p></div>
+      <div><span>03</span><b>下钻洞察</b><p>进入现场报告，理解问题、成因与改进建议。</p></div>
+    </div>
+  </section>
 
   <!-- 全流程总览 -->
   <div class="card" id="overview">
@@ -300,10 +320,12 @@ flowchart LR
 <script>
   mermaid.initialize({
     startOnLoad:true,
-    theme:'neutral',
+    theme:'base',
     securityLevel:'loose',
+    themeVariables:{ primaryColor:'#e8f2ed',primaryTextColor:'#17231f',primaryBorderColor:'#79aa91',lineColor:'#708078',secondaryColor:'#f7ecdb',tertiaryColor:'#f3f6f4',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' },
     flowchart:{ useMaxWidth:false, htmlLabels:true, curve:'basis' }
   });
 </script>
+<script src="site.js"></script>
 </body>
 </html>

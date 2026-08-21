@@ -20,9 +20,13 @@
 ## 📁 文件结构
 
 ```
-├── index.html     # ⭐ 看板主入口（GitHub Pages 首页）
-├── preview.html   # 本地预览版本（内容同上）
-└── README.md      # 本说明
+├── index.html              # ⭐ 看板主入口（GitHub Pages 首页）
+├── receiving-insight.html  # 收货现场洞察报告
+├── count-insight.html      # 盘点现场洞察报告
+├── site.css                # 全站统一视觉与响应式样式
+├── site.js                 # 导航状态等轻量交互
+├── preview.html            # 自动跳转至新版主入口
+└── README.md               # 本说明
 ```
 
 ## 🚀 部署到 GitHub Pages

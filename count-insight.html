@@ -81,9 +81,10 @@
   .mermaid svg{max-width:100%; height:auto;}
   footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
 </style>
+<link rel="stylesheet" href="site.css">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
-<body>
+<body class="report-page">
 
 <header>
   <a class="back" href="index.html">← 返回看板首页</a>
@@ -220,7 +221,7 @@ flowchart LR
 <footer>盘点环节现场洞察报告 · 消费品仓库看板 · 2026-08-06</footer>
 
 <script>
-  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#e8f2ed',primaryTextColor:'#17231f',primaryBorderColor:'#79aa91',lineColor:'#708078',secondaryColor:'#f7ecdb',tertiaryColor:'#f3f6f4',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });
 </script>
 </body>
 </html>
