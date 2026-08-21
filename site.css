@@ -45,6 +45,11 @@ header::before { position: absolute; inset: 0 0 auto; content: ""; height: 5px; 
 .hero-shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 24px 0 0; }
 .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .hero-brand { color: #ff6666; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.nav-brand { color: #fff; font-size: 11px; font-weight: 850; letter-spacing: .1em; text-decoration: none; }
+.global-nav-links { display: flex; align-items: center; gap: 7px; }
+.global-nav-links a { padding: 7px 10px; color: #aaa; border-radius: 8px; font-size: 11px; font-weight: 750; text-decoration: none; }
+.global-nav-links a:hover, .global-nav-links a.active { color: #fff; background: rgba(255,255,255,.08); }
+.global-nav-links a.active::after { display: block; content: ""; height: 2px; margin-top: 4px; background: var(--sf-red); border-radius: 99px; }
 
 header .author {
   position: static !important;
@@ -222,6 +227,9 @@ footer { width: min(1120px, calc(100% - 40px)); margin: 0 auto 26px !important; 
 @media (max-width: 560px) {
   .hero-shell, .container, footer, .report-page .container { width: min(100% - 18px, 520px); }
   .hero-top { align-items: flex-start; flex-direction: column; }
+  .global-nav-links { width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .global-nav-links::-webkit-scrollbar { display: none; }
+  .global-nav-links a { flex: 0 0 auto; }
   .hero-copy { padding: 42px 0 38px; }
   header .kpis { grid-template-columns: repeat(2, 1fr); }
   header .kpi { padding: 14px 16px !important; }

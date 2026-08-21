@@ -1,54 +1,58 @@
-# 🏭 消费品仓库 · 全流程运营可视化看板
+# 青浦仓智能项目
 
-> 上海青浦站消费品仓库（鞋类 / 服装 / 配件）全流程运营可视化看板。
-> 本仓库用于 **GitHub Pages** 在线托管，浏览器直接访问即可查看。
+面向客户与管理者的仓储认知和状态模拟 Demo。项目把专业仓储数据转化为更直观的界面，帮助不熟悉仓储业务的人快速回答两个问题：
 
-🔗 **在线访问**（部署后生效）：`https://<你的GitHub用户名>.github.io/<仓库名>/`
+1. 当前仓库处于什么状态？
+2. 按设想的入库量和出库量运行后，未来某个时点可能处于什么状态？
 
-## 🎯 看板内容
+## 当前模块
 
-覆盖仓库六大运营域：
-1. **📥 收货域** — 邀约 → 车辆检查 → 签收 → 抽检 → RF收货 → 不合格品处理
-2. **📦 上架域** — 整托/整箱/零散补库上架、码放标准
-3. **🔍 盘点域** — 快速盘点、差异处理
-4. **🚚 发货拣选域** — 波次 → 拣货 → 复核 → 打包 → 发运
-5. **↩️ 退货质检域** — 逆向物流、质检分级、报废处理
-6. **💻 EDP系统支撑域** — 波次/数据/单据管控
+- **项目首页**：说明项目价值、产品边界和演进路线。
+- **仓库全流程**：展示收货、上架、盘点、发货、退货和系统支撑六个运营域。
+- **鞋品状态模拟器**：输入累计入库量、出库量和目标日期，预估库存、分区压力及 A—D 风险等级。
+- **现场洞察**：收货与盘点场景的结构化观察报告。
 
-每张流程图配**岗位考核分值表**（数据来自仓库 MT 评价表）。
+## 数据与产品边界
 
-## 📁 文件结构
+当前版本基于青浦仓 2026 年 7 月人工收集的鞋类静态数据，用于验证产品界面、情景输入和评级逻辑，并非实时 WMS 事实看板，也不代表正式履约承诺。
 
-```
-├── index.html              # ⭐ 看板主入口（GitHub Pages 首页）
-├── receiving-insight.html  # 收货现场洞察报告
-├── count-insight.html      # 盘点现场洞察报告
-├── site.css                # 全站统一视觉与响应式样式
-├── site.js                 # 导航状态等轻量交互
-├── preview.html            # 自动跳转至新版主入口
-└── README.md               # 本说明
+模拟器采用简化关系：
+
+```text
+未来库存 = 7月31日库存 + 预计入库 − 预计出库
 ```
 
-## 🚀 部署到 GitHub Pages
+进出库量按照 7 月历史比例分配到整托区和散货区。只有接入 WMS 并持续获得完整、统一口径的数据后，项目才能形成更真实有效的事实看板；当数据能够按日更新时，可进一步评估突发大批量入库对仓库造成的实际压力。
 
-### 方式一：网页上传（无需安装软件，推荐）
-1. 在 GitHub 新建一个仓库（Public）
-2. 仓库主页 → **Add file** → **Upload files**
-3. 把 `index.html` 拖入上传，Commit
-4. **Settings** → 左侧 **Pages** → Build and deployment 选 **Deploy from a branch** → 分支选 `main` / root → **Save**
-5. 等待 1-2 分钟，访问 `https://<用户名>.github.io/<仓库名>/`
+## 文件结构
 
-### 方式二：本地 Git 推送
+```text
+├── index.html               # 项目门户首页
+├── portal.css               # 门户首页样式
+├── operations.html          # 仓库全流程知识看板
+├── simulation.html          # 鞋品仓储状态模拟器
+├── simulation.css           # 模拟器样式
+├── simulation.js            # 模拟与评级逻辑
+├── receiving-insight.html   # 收货现场洞察报告
+├── count-insight.html       # 盘点现场洞察报告
+├── site.css                 # 全站公共视觉与响应式样式
+├── site.js                  # 公共轻量交互
+├── preview.html             # 跳转至项目首页
+└── README.md
+```
+
+## 本地预览
+
+本项目为静态站点，可在项目目录运行：
+
 ```bash
-git init
-git add index.html
-git commit -m "init: 仓库全流程看板"
-git branch -M main
-git remote add origin https://github.com/<用户>/<仓库>.git
-git push -u origin main
+python3 -m http.server 4173
 ```
-然后在仓库 Settings → Pages 选择 main 分支开启即可。
 
-## 💡 说明
-- 看板通过 CDN 加载 Mermaid 库，访问时需联网。
-- 业务细节请以现场实际 SOP 为准。
+然后访问 `http://localhost:4173/`。
+
+## GitHub Pages
+
+线上地址：<https://jamese5095.github.io/ecco-warehouse-dashboard/>
+
+静态页面可直接由 GitHub Pages 托管。仓库全流程中的 Mermaid 图通过 CDN 加载，访问该模块时需要联网。
