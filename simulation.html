@@ -15,6 +15,7 @@
         <a class="nav-brand" href="index.html">SF QINGPU · WAREHOUSE INTELLIGENCE</a>
         <div class="global-nav-links">
           <a href="index.html">项目首页</a>
+          <a href="dashboard.html">日级看板</a>
           <a href="operations.html">仓库全流程</a>
           <a class="active" href="simulation.html">状态模拟器</a>
         </div>
@@ -25,7 +26,7 @@
           <h1>鞋品仓储状态模拟器</h1>
           <p>输入进出库计划，直接查看目标日期的仓库压力。</p>
         </div>
-        <div class="sim-version"><b>当前 · 7月静态 Demo</b><span>未来 · WMS 日级看板</span></div>
+        <div class="sim-version"><b>当前 · 7月日级 Demo</b><span>未来 · WMS 自动更新</span></div>
       </div>
     </div>
   </header>
@@ -64,7 +65,7 @@
               <div class="rack-zone-head"><span>整托区</span><strong id="pallet-percent">82.8%</strong></div>
               <div class="capacity-rack">
                 <span class="rack-fill" id="pallet-forecast" style="height:82.8%"></span>
-                <span class="rack-current" style="bottom:75%"><i>当前 75%</i></span>
+                <span class="rack-current" style="bottom:70.3%"><i>当前 70.3%</i></span>
                 <span class="rack-warning" style="bottom:85%"><i>警戒</i></span>
                 <span class="rack-grid-lines"></span>
                 <span class="overflow-signal" id="pallet-overflow-signal">超载</span>
@@ -75,7 +76,7 @@
               <div class="rack-zone-head"><span>散货区</span><strong id="loose-percent">79.9%</strong></div>
               <div class="capacity-rack">
                 <span class="rack-fill" id="loose-forecast" style="height:79.9%"></span>
-                <span class="rack-current" style="bottom:77%"><i>当前 77%</i></span>
+                <span class="rack-current" style="bottom:72.2%"><i>当前 72.2%</i></span>
                 <span class="rack-warning" style="bottom:85%"><i>警戒</i></span>
                 <span class="rack-grid-lines"></span>
                 <span class="overflow-signal" id="loose-overflow-signal">超载</span>
@@ -91,7 +92,7 @@
           <div class="physical-impact"><span id="impact-label">现场含义</span><strong id="impact-value">整托区仍有约1,015个托位</strong><small id="impact-note">将抽象库存变化换算成现场空间</small></div>
           <div class="decision-stats">
             <div><span>预计库存</span><strong id="result-total">1,075,410 双</strong><small id="result-delta">↑ 比现在多 80,000 双</small></div>
-            <div><span>预计总利用率</span><strong id="result-utilization">81.8%</strong><small>当前为75.7%</small></div>
+            <div><span>预计总利用率</span><strong id="result-utilization">81.8%</strong><small id="current-total-utilization">当前为71.0%</small></div>
             <div><span id="result-remaining-label">预计还能存放</span><strong id="result-remaining">239,445 双</strong><small id="result-remaining-note">整托与散货合计</small></div>
           </div>
           <div class="advice"><b>建议关注</b><p id="advice-copy">优先关注整托区；如入库高度集中，可考虑分批到仓。</p></div>
@@ -104,7 +105,7 @@
           <p id="intensity-copy">计划日均入库约为7月正常水平的0.43倍。</p>
           <div class="intensity-ruler" aria-label="计划日均入库与7月日均和峰值对比">
             <span class="ruler-line"></span>
-            <span class="ruler-point average" style="left:46.1%"><i></i><b>7月日均</b><small>22,372</small></span>
+            <span class="ruler-point average" style="left:46.7%"><i></i><b>7月日均</b><small>22,632</small></span>
             <span class="ruler-point plan" id="plan-intensity-marker" style="left:19.6%"><i></i><b>本次计划</b><small id="plan-intensity-value">9,524</small></span>
             <span class="ruler-point peak" style="left:100%"><i></i><b>7月峰值</b><small>48,511</small></span>
           </div>
@@ -132,7 +133,7 @@
       <details class="model-basis">
         <summary>查看本次预估依据 <span>数据、比例与公式</span></summary>
         <div class="basis-grid">
-          <div><span>库存基准</span><b>2026年7月31日</b><small>整托638,604双 · 散货356,806双</small></div>
+            <div><span>库存基准</span><b>2026年7月31日 · 933,168双</b><small>区域库存按既有整托/散货结构估算分配</small></div>
           <div><span>区域容量</span><b>1,314,855双</b><small>整托851,472双 · 散货463,383双</small></div>
           <div><span>历史分流</span><b>按7月比例自动分配</b><small>入库与出库分别使用历史区域比例</small></div>
           <div><span>计算关系</span><b>当前库存 + 入库 − 出库</b><small>智能解读当前由规则生成</small></div>
@@ -150,9 +151,9 @@
         <div class="boundary-comparison">
           <article class="boundary-state current">
             <span>当前</span>
-            <h3>7月静态 Demo</h3>
-            <div><b>人工采集</b><b>单月快照</b><b>鞋类试点</b></div>
-            <p>验证界面、模拟逻辑与使用体验。</p>
+            <h3>7月日级 Demo</h3>
+            <div><b>人工采集</b><b>31天进出存</b><b>鞋类试点</b></div>
+            <p>验证日级看板、模拟逻辑与使用体验。</p>
           </article>
           <div class="boundary-arrow" aria-hidden="true">→</div>
           <article class="boundary-state future">
@@ -171,6 +172,7 @@
     <p>青浦仓智能决策看板 · 鞋品仓储状态模拟器</p>
     <p>静态数据用于产品体验验证，不代表正式履约承诺。</p>
   </footer>
+  <script src="data/july-shoes.js"></script>
   <script src="simulation.js"></script>
 </body>
 </html>

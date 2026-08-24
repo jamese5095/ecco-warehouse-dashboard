@@ -1,11 +1,21 @@
+const JULY_SOURCE = window.JULY_SHOES;
+const JULY_DAYS = JULY_SOURCE?.days || [];
+const DATA_BASE_TOTAL = JULY_DAYS.length ? JULY_DAYS[JULY_DAYS.length - 1].stock : 933168;
+const ESTIMATED_PALLET_SHARE = 638604 / (638604 + 356806);
+const ESTIMATED_PALLET_STOCK = Math.round(DATA_BASE_TOTAL * ESTIMATED_PALLET_SHARE);
+
 const WAREHOUSE = {
-  pallet: { label: "整托区", capacity: 851472, current: 638604, unitSize: 144, unitLabel: "个标准托盘" },
-  loose: { label: "散货区", capacity: 463383, current: 356806, unitSize: 9, unitLabel: "个散货库位" },
+  pallet: { label: "整托区", capacity: 851472, current: ESTIMATED_PALLET_STOCK, unitSize: 144, unitLabel: "个标准托盘" },
+  loose: { label: "散货区", capacity: 463383, current: DATA_BASE_TOTAL - ESTIMATED_PALLET_STOCK, unitSize: 9, unitLabel: "个散货库位" },
   inboundPalletRatio: 390402 / 469814,
   outboundPalletRatio: 284751 / 343414,
 };
 
-const JULY = { averageInbound: 22372, peakInbound: 48511 };
+const inboundDays = JULY_DAYS.filter((day) => day.inMain + day.inRepeat > 0);
+const JULY = {
+  averageInbound: inboundDays.length ? inboundDays.reduce((sum, day) => sum + day.inMain + day.inRepeat, 0) / inboundDays.length : 22632,
+  peakInbound: JULY_DAYS.length ? Math.max(...JULY_DAYS.map((day) => day.inMain + day.inRepeat)) : 48511,
+};
 const BASE_DATE = new Date(2026, 6, 31);
 const TOTAL_CAPACITY = WAREHOUSE.pallet.capacity + WAREHOUSE.loose.capacity;
 const CURRENT_TOTAL = WAREHOUSE.pallet.current + WAREHOUSE.loose.current;
@@ -163,6 +173,7 @@ function calculate() {
   document.querySelector("#result-total").textContent = `${number(total)} 双`;
   document.querySelector("#result-delta").textContent = `${total >= CURRENT_TOTAL ? "↑" : "↓"} 比现在${total >= CURRENT_TOTAL ? "多" : "少"} ${number(Math.abs(total - CURRENT_TOTAL))} 双`;
   document.querySelector("#result-utilization").textContent = percent(totalUtilization);
+  document.querySelector("#current-total-utilization").textContent = `当前为${percent(CURRENT_TOTAL / TOTAL_CAPACITY)}`;
   document.querySelector("#result-remaining-label").textContent = shortage > 0 ? "预计出库缺口" : remaining >= 0 ? (overflow > 0 ? "合计名义余量" : "预计还能存放") : "预计超出容量";
   document.querySelector("#result-remaining").textContent = `${number(shortage > 0 ? shortage : Math.abs(remaining))} 双`;
   document.querySelector("#result-remaining-note").textContent = shortage > 0 ? "计划无法完整履约" : overflow > 0 ? `${pressureZone.label}仍存在空间缺口` : "整托与散货合计";

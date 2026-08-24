@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="青浦仓2026年7月鞋类日级进出存看板。">
+  <title>7月鞋类日级看板｜青浦仓智能决策看板</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header">
+    <div class="dashboard-shell">
+      <nav class="dashboard-nav" aria-label="项目导航">
+        <a class="nav-brand" href="index.html">SF QINGPU · WAREHOUSE INTELLIGENCE</a>
+        <div class="global-nav-links">
+          <a href="index.html">项目首页</a>
+          <a class="active" href="dashboard.html">日级看板</a>
+          <a href="operations.html">仓库全流程</a>
+          <a href="simulation.html">状态模拟器</a>
+        </div>
+      </nav>
+
+      <div class="dashboard-hero">
+        <div>
+          <div class="dashboard-kicker">真实运营数据 · DAILY VIEW</div>
+          <h1>7月鞋类<br>日级看板</h1>
+          <p>把31天的入库、出库与库存，收束成一条可以快速理解的仓库状态线。</p>
+        </div>
+        <aside class="data-stamp" aria-label="数据状态">
+          <span>DATA STATUS</span>
+          <strong>31</strong>
+          <b>个连续库存日</b>
+          <div><i></i>人工采集 · 已完成日级映射</div>
+        </aside>
+      </div>
+
+      <div class="month-strip" aria-label="7月核心指标">
+        <div><span>7月累计入库</span><strong id="month-inbound">497,902</strong><small>双</small></div>
+        <div><span>7月累计出库</span><strong id="month-outbound">305,155</strong><small>双</small></div>
+        <div><span>月末库存</span><strong id="month-ending-stock">933,168</strong><small>双</small></div>
+        <div><span>月末库容利用率</span><strong id="month-ending-utilization">71.0%</strong><small>观察区</small></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="day-console" aria-labelledby="day-console-title">
+      <div class="console-heading">
+        <div>
+          <div class="dashboard-label">日期回看 · <span id="selected-weekday">星期五</span></div>
+          <h2 id="day-console-title"><span id="selected-date">7月31日</span>，仓库发生了什么？</h2>
+        </div>
+        <div class="timeline-controls">
+          <button type="button" id="previous-day" aria-label="查看前一天">←</button>
+          <button type="button" id="play-timeline"><span>▶</span> 播放7月</button>
+          <button type="button" id="next-day" aria-label="查看后一天">→</button>
+        </div>
+      </div>
+
+      <input id="date-slider" class="date-slider" type="range" min="0" max="30" value="30" aria-label="选择7月日期">
+      <div class="slider-labels" aria-hidden="true"><span>7月1日</span><span>7月8日</span><span>7月16日</span><span>7月24日</span><span>7月31日</span></div>
+
+      <div class="day-summary-grid">
+        <article class="state-card" id="state-card">
+          <div class="state-copy">
+            <div class="dashboard-label">当日状态</div>
+            <h3 id="state-headline">库存进入观察区</h3>
+            <p id="state-description">月末库存维持在70%以上，仍未触及85%高压警戒线。</p>
+            <div class="state-grade"><strong id="state-grade">B</strong><span id="state-grade-label">需要关注</span></div>
+          </div>
+          <div class="utilization-gauge" id="utilization-gauge" style="--gauge-value:71%">
+            <div><strong id="selected-utilization">71.0%</strong><span>库容利用率</span></div>
+          </div>
+        </article>
+
+        <div class="flow-cards">
+          <article class="flow-card inbound">
+            <span>当日入库</span>
+            <strong id="selected-inbound">6,591</strong>
+            <small id="selected-inbound-note">主单3,301 · 补单3,290</small>
+          </article>
+          <article class="flow-card outbound">
+            <span>当日出库</span>
+            <strong id="selected-outbound">3,543</strong>
+            <small id="selected-outbound-note">主单0 · 其他3,543</small>
+          </article>
+          <article class="flow-card stock">
+            <span>当日库存</span>
+            <strong id="selected-stock">933,168</strong>
+            <small id="selected-stock-note">较前一日减少3,541双</small>
+          </article>
+          <article class="flow-card remaining">
+            <span>剩余库容</span>
+            <strong id="selected-remaining">381,687</strong>
+            <small>按鞋类总容量估算</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chart-card stock-chart-card" aria-labelledby="stock-chart-title">
+      <div class="chart-heading">
+        <div><div class="dashboard-label">库存轨迹 · STOCK LEVEL</div><h2 id="stock-chart-title">库存从月中开始持续抬升</h2></div>
+        <div class="chart-legend"><span class="legend-stock">实际库存</span><span class="legend-watch">70%观察线</span><span class="legend-warning">85%警戒线</span></div>
+      </div>
+      <div class="chart-frame"><svg id="stock-chart" role="img" aria-label="7月每日鞋类库存趋势图"></svg></div>
+      <div class="chart-reading"><strong id="stock-story-number">+213,697 双</strong><span id="stock-story-copy">7月1日至31日库存净增，主要增量集中在月末一周。</span></div>
+    </section>
+
+    <section class="chart-card flow-chart-card" aria-labelledby="flow-chart-title">
+      <div class="chart-heading">
+        <div><div class="dashboard-label">业务节奏 · DAILY FLOW</div><h2 id="flow-chart-title">每天的入库与出库如何交替？</h2></div>
+        <div class="chart-legend"><span class="legend-inbound">入库</span><span class="legend-outbound">出库</span></div>
+      </div>
+      <div class="chart-frame compact"><svg id="flow-chart" role="img" aria-label="7月每日鞋类入库与出库对比图"></svg></div>
+      <div class="flow-insight-row">
+        <div><span>入库峰值</span><strong>48,511</strong><small>7月28日</small></div>
+        <div><span>出库峰值</span><strong>53,092</strong><small>7月1日</small></div>
+        <div><span>入库高于出库</span><strong>15天</strong><small>库存主要增长日</small></div>
+      </div>
+    </section>
+
+    <section class="milestone-section" aria-labelledby="milestone-title">
+      <div class="milestone-heading"><div><div class="dashboard-label">关键转折 · KEY MOMENTS</div><h2 id="milestone-title">四个时点，看懂整个7月。</h2></div><p>不是展示所有数据，而是标出最能解释仓库状态变化的节点。</p></div>
+      <div class="milestone-grid">
+        <button type="button" data-day-index="0"><span>07.01</span><b>出库峰值</b><strong>53,092</strong><small>月初集中发货</small></button>
+        <button type="button" data-day-index="7"><span>07.08</span><b>库存低点</b><strong>697,653</strong><small>本月最低水位</small></button>
+        <button type="button" data-day-index="27"><span>07.28</span><b>入库峰值</b><strong>48,511</strong><small>库存加速抬升</small></button>
+        <button type="button" data-day-index="29"><span>07.30</span><b>库存峰值</b><strong>936,709</strong><small>利用率达到71.2%</small></button>
+      </div>
+    </section>
+
+    <section class="future-bridge" aria-labelledby="future-bridge-title">
+      <div>
+        <div class="dashboard-label">从事实走向预估</div>
+        <h2 id="future-bridge-title">7月31日不是终点，<br>而是未来模拟的起点。</h2>
+      </div>
+      <div class="future-bridge-copy">
+        <p>以真实月末库存933,168双作为基准，输入下一阶段计划中的入库和出库量，观察仓库可能进入的压力区间。</p>
+        <a href="simulation.html">进入状态模拟器 <span>→</span></a>
+      </div>
+    </section>
+
+    <details class="data-basis">
+      <summary>查看数据口径与边界 <span>当前为人工采集的产品验证数据</span></summary>
+      <div>
+        <p><b>入库</b>：主单与补单EDI数量；未出现的日期暂按0显示。</p>
+        <p><b>出库</b>：主单鞋出库与补单鞋出库总和。</p>
+        <p><b>库存</b>：主补单鞋类每日库存快照；鞋类数量统一按1件=1双展示。</p>
+        <p><b>边界</b>：当前数据未直接接入WMS，页面用于验证日级看板体验，不代表正式履约承诺。</p>
+      </div>
+    </details>
+  </main>
+
+  <footer class="dashboard-footer">
+    <p>青浦仓智能决策看板 · 7月鞋类日级数据</p>
+    <p>项目作者：易楷杰</p>
+  </footer>
+
+  <script src="data/july-shoes.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
