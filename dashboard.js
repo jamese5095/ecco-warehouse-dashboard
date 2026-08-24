@@ -114,8 +114,14 @@ function renderStockChart() {
   const plotHeight = height - margin.top - margin.bottom;
   const yMin = .5;
   const yMax = PRESSURE.high;
+  const observationValue = PRESSURE.observation;
+  const pressureBandRatio = .28;
+  const pressureBandHeight = plotHeight * pressureBandRatio;
+  const normalBandHeight = plotHeight - pressureBandHeight;
   const x = (index) => margin.left + index / (DAYS.length - 1) * plotWidth;
-  const y = (value) => margin.top + (yMax - value) / (yMax - yMin) * plotHeight;
+  const y = (value) => value >= observationValue
+    ? margin.top + (yMax - value) / (yMax - observationValue) * pressureBandHeight
+    : margin.top + pressureBandHeight + (observationValue - value) / (observationValue - yMin) * normalBandHeight;
 
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.innerHTML = "";
@@ -127,7 +133,6 @@ function renderStockChart() {
   defs.appendChild(gradient);
   svg.appendChild(defs);
 
-  const observationValue = PRESSURE.observation;
   svg.appendChild(svgElement("rect", {
     x: margin.left, y: y(yMax), width: plotWidth, height: y(observationValue) - y(yMax), fill: "#fff8e8",
   }));
