@@ -39,7 +39,7 @@
         <div><span>7月累计入库</span><strong id="month-inbound">497,902</strong><small>双</small></div>
         <div><span>7月累计出库</span><strong id="month-outbound">305,155</strong><small>双</small></div>
         <div><span>月末库存</span><strong id="month-ending-stock">933,168</strong><small>双</small></div>
-        <div><span>月末库容利用率</span><strong id="month-ending-utilization">71.0%</strong><small>观察区</small></div>
+        <div><span>月末库容利用率</span><strong id="month-ending-utilization">71.0%</strong><small>容量可控</small></div>
       </div>
     </div>
   </header>
@@ -65,13 +65,26 @@
         <article class="state-card" id="state-card">
           <div class="state-copy">
             <div class="dashboard-label">当日状态</div>
-            <h3 id="state-headline">库存进入观察区</h3>
-            <p id="state-description">月末库存维持在70%以上，仍未触及85%高压警戒线。</p>
-            <div class="state-grade"><strong id="state-grade">B</strong><span id="state-grade-label">需要关注</span></div>
+            <h3 id="state-headline">容量可控，库存处于月内高位</h3>
+            <p id="state-description">当前超过70%观察起点，但距离85%高压提示线仍有明显空间。</p>
+            <div class="state-context">
+              <div class="state-grade"><strong id="state-grade">B</strong><span id="state-grade-label">容量可控</span></div>
+              <div class="history-position"><span>7月历史位置</span><strong id="history-position">P97 · 月内高位</strong></div>
+            </div>
           </div>
-          <div class="utilization-gauge" id="utilization-gauge" style="--gauge-value:71%">
-            <div><strong id="selected-utilization">71.0%</strong><span>库容利用率</span></div>
-          </div>
+          <figure class="capacity-scale" aria-label="完整库容比例标尺">
+            <figcaption>完整容量比例</figcaption>
+            <div class="capacity-scale-body">
+              <div class="capacity-ticks" aria-hidden="true"><span>100%</span><span>85%</span><span>70%</span><span>0%</span></div>
+              <div class="capacity-meter">
+                <span class="capacity-zone normal"></span>
+                <span class="capacity-zone observe"></span>
+                <span class="capacity-zone high"></span>
+                <span class="capacity-current" id="capacity-current" style="bottom:71%"><i id="selected-utilization">71.0%</i></span>
+              </div>
+            </div>
+            <small>100% = 1,314,855双</small>
+          </figure>
         </article>
 
         <div class="flow-cards">
@@ -101,11 +114,11 @@
 
     <section class="chart-card stock-chart-card" aria-labelledby="stock-chart-title">
       <div class="chart-heading">
-        <div><div class="dashboard-label">库存轨迹 · STOCK LEVEL</div><h2 id="stock-chart-title">库存从月中开始持续抬升</h2></div>
-        <div class="chart-legend"><span class="legend-stock">实际库存</span><span class="legend-watch">70%观察线</span><span class="legend-warning">85%警戒线</span></div>
+        <div><div class="dashboard-label">库存轨迹 · STOCK LEVEL</div><h2 id="stock-chart-title">库存月末快速升至本月高位</h2></div>
+        <div class="chart-legend"><span class="legend-stock">实际库存</span><span class="legend-watch">70%观察起点</span></div>
       </div>
       <div class="chart-frame"><svg id="stock-chart" role="img" aria-label="7月每日鞋类库存趋势图"></svg></div>
-      <div class="chart-reading"><strong id="stock-story-number">+213,697 双</strong><span id="stock-story-copy">7月1日至31日库存净增，主要增量集中在月末一周。</span></div>
+      <div class="chart-reading"><strong id="stock-story-number">+213,697 双</strong><span id="stock-story-copy">7月1日至31日库存净增，主要增量集中在月末一周。</span><small>趋势图聚焦65万—100万双；完整容量比例见上方标尺。</small></div>
     </section>
 
     <section class="chart-card flow-chart-card" aria-labelledby="flow-chart-title">
@@ -148,6 +161,7 @@
         <p><b>入库</b>：主单与补单EDI数量；未出现的日期暂按0显示。</p>
         <p><b>出库</b>：主单鞋出库与补单鞋出库总和。</p>
         <p><b>库存</b>：主补单鞋类每日库存快照；鞋类数量统一按1件=1双展示。</p>
+        <p><b>压力区间</b>：70%为观察起点、85%为高压提示线、100%为容量上限；前两项为Demo暂定规则，并非仓库正式SOP。</p>
         <p><b>边界</b>：当前数据未直接接入WMS，页面用于验证日级看板体验，不代表正式履约承诺。</p>
       </div>
     </details>

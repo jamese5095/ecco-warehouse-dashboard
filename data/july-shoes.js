@@ -9,6 +9,7 @@ window.JULY_SHOES = {
     inboundDefinition: "主单 EDI 数量 + 补单 EDI 数量",
     outboundDefinition: "主单鞋出库 + 补单鞋出库总和",
     stockDefinition: "主补单鞋类日库存快照",
+    pressureThresholds: { observation: 0.7, high: 0.85, capacity: 1 },
   },
   days: [
     { date: "2026-07-01", inMain: 25900, inRepeat: 10574, outMain: 47759, outOther: 5333, stock: 719471 },

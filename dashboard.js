@@ -7,6 +7,7 @@ const DAYS = JULY_DATA.days.map((day) => ({
 }));
 
 const CAPACITY = JULY_DATA.meta.capacity;
+const PRESSURE = JULY_DATA.meta.pressureThresholds || { observation: .7, high: .85, capacity: 1 };
 const svgNamespace = "http://www.w3.org/2000/svg";
 let selectedIndex = DAYS.length - 1;
 let playback = null;
@@ -25,10 +26,17 @@ function dateParts(value) {
 }
 
 function stateFor(utilization) {
-  if (utilization >= 1) return { grade: "D", label: "容量超限", headline: "库存超过设计容量", description: "当前水位已经超过鞋类库容上限，需要立即调整进出计划。" };
-  if (utilization >= .85) return { grade: "C", label: "高压运行", headline: "库存进入高压区", description: "库存超过85%警戒线，继续集中入库将明显压缩现场缓冲空间。" };
-  if (utilization >= .7) return { grade: "B", label: "需要关注", headline: "库存进入观察区", description: "库存超过70%观察线，但仍未触及85%高压警戒线。" };
-  return { grade: "A", label: "空间宽松", headline: "库存处于宽松区", description: "当前库存低于70%观察线，仓库仍保有较充分的空间余量。" };
+  if (utilization >= PRESSURE.capacity) return { grade: "D", label: "容量超限", headline: "库存超过设计容量", description: "当前水位已经超过鞋类库容上限，需要立即调整进出计划。" };
+  if (utilization >= PRESSURE.high) return { grade: "C", label: "高压运行", headline: "库存进入高压区", description: "库存超过85%高压提示线，继续集中入库将明显压缩现场缓冲空间。" };
+  if (utilization >= PRESSURE.observation) return { grade: "B", label: "容量可控", headline: "容量仍然可控", description: "当前超过70%观察起点，但距离85%高压提示线仍有明显空间。" };
+  return { grade: "A", label: "容量宽松", headline: "容量空间充足", description: "当前库存低于70%观察起点，仓库仍保有较充分的空间余量。" };
+}
+
+function historicalPosition(stock) {
+  const rank = DAYS.filter((day) => day.stock <= stock).length / DAYS.length;
+  const percentile = Math.round(rank * 100);
+  const label = percentile >= 90 ? "月内高位" : percentile <= 15 ? "月内低位" : "月内常态";
+  return { percentile, label };
 }
 
 function setText(selector, value) {
@@ -49,14 +57,23 @@ function updateSelectedDay() {
   const previous = selectedIndex > 0 ? DAYS[selectedIndex - 1] : null;
   const stockDelta = previous ? day.stock - previous.stock : 0;
   const state = stateFor(day.utilization);
+  const history = historicalPosition(day.stock);
   const date = dateParts(day.date);
+  const highPressureGap = Math.max(0, CAPACITY * PRESSURE.high - day.stock);
+  const headline = history.label === "月内高位" && state.grade !== "D"
+    ? `${state.headline}，库存处于月内高位`
+    : history.label === "月内低位" && state.grade === "A" ? "容量空间充足，库存处于月内低位" : state.headline;
+  const description = state.grade === "B"
+    ? `当前超过70%观察起点，距离85%高压提示线还有约${formatNumber(highPressureGap)}双。`
+    : state.description;
 
   setText("#selected-date", date.label);
   setText("#selected-weekday", date.weekday);
   setText("#state-grade", state.grade);
   setText("#state-grade-label", state.label);
-  setText("#state-headline", state.headline);
-  setText("#state-description", state.description);
+  setText("#state-headline", headline);
+  setText("#state-description", description);
+  setText("#history-position", `P${history.percentile} · ${history.label}`);
   setText("#selected-utilization", formatPercent(day.utilization));
   setText("#selected-inbound", formatNumber(day.inbound));
   setText("#selected-inbound-note", `主单${formatNumber(day.inMain)} · 补单${formatNumber(day.inRepeat)}`);
@@ -66,9 +83,11 @@ function updateSelectedDay() {
   setText("#selected-stock-note", previous ? `较前一日${stockDelta >= 0 ? "增加" : "减少"}${formatNumber(Math.abs(stockDelta))}双` : "7月首个库存快照");
   setText("#selected-remaining", formatNumber(Math.max(0, CAPACITY - day.stock)));
 
-  const gauge = document.querySelector("#utilization-gauge");
-  gauge.style.setProperty("--gauge-value", `${Math.min(100, day.utilization * 100)}%`);
-  gauge.setAttribute("aria-label", `${date.label}库容利用率${formatPercent(day.utilization)}`);
+  const stateCard = document.querySelector("#state-card");
+  stateCard.dataset.grade = state.grade;
+  const capacityCurrent = document.querySelector("#capacity-current");
+  capacityCurrent.style.bottom = `${Math.min(100, day.utilization * 100)}%`;
+  capacityCurrent.closest(".capacity-scale").setAttribute("aria-label", `${date.label}库容利用率${formatPercent(day.utilization)}；70%为观察起点，85%为高压提示线`);
   updateSliderTrack();
   updateChartSelection();
 }
@@ -94,7 +113,7 @@ function renderStockChart() {
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const yMin = 650000;
-  const yMax = CAPACITY;
+  const yMax = 1000000;
   const x = (index) => margin.left + index / (DAYS.length - 1) * plotWidth;
   const y = (value) => margin.top + (yMax - value) / (yMax - yMin) * plotHeight;
 
@@ -108,22 +127,18 @@ function renderStockChart() {
   defs.appendChild(gradient);
   svg.appendChild(defs);
 
-  const bands = [
-    { from: CAPACITY, to: CAPACITY * .85, fill: "#f2f2f2" },
-    { from: CAPACITY * .85, to: CAPACITY * .7, fill: "#fff5f5" },
-  ];
-  bands.forEach((band) => svg.appendChild(svgElement("rect", {
-    x: margin.left, y: y(band.from), width: plotWidth, height: y(band.to) - y(band.from), fill: band.fill,
-  })));
+  const observationValue = CAPACITY * PRESSURE.observation;
+  svg.appendChild(svgElement("rect", {
+    x: margin.left, y: y(yMax), width: plotWidth, height: y(observationValue) - y(yMax), fill: "#fff8e8",
+  }));
 
-  [CAPACITY, CAPACITY * .85, CAPACITY * .7, 700000].forEach((value) => {
+  [650000, 700000, 800000, 900000, 1000000].forEach((value) => {
     const lineY = y(value);
     svg.appendChild(svgElement("line", { x1: margin.left, x2: width - margin.right, y1: lineY, y2: lineY, class: "chart-grid-line" }));
-    addSvgText(svg, margin.left - 11, lineY + 3, value === CAPACITY ? "100%" : value === CAPACITY * .85 ? "85%" : value === CAPACITY * .7 ? "70%" : "70万", "chart-axis-label", "end");
+    addSvgText(svg, margin.left - 11, lineY + 3, `${Math.round(value / 10000)}万`, "chart-axis-label", "end");
   });
-
-  addSvgText(svg, width - margin.right, y(CAPACITY * .85) - 7, "高压警戒", "chart-threshold-label", "end").setAttribute("fill", "#777");
-  addSvgText(svg, width - margin.right, y(CAPACITY * .7) - 7, "观察线", "chart-threshold-label", "end").setAttribute("fill", "#b57f00");
+  svg.appendChild(svgElement("line", { x1: margin.left, x2: width - margin.right, y1: y(observationValue), y2: y(observationValue), class: "chart-observation-line" }));
+  addSvgText(svg, margin.left + 10, y(observationValue) - 7, `70%观察起点 · ${formatNumber(observationValue)}`, "chart-threshold-label").setAttribute("fill", "#a87300");
 
   const linePath = DAYS.map((day, index) => `${index ? "L" : "M"}${x(index).toFixed(1)},${y(day.stock).toFixed(1)}`).join(" ");
   const areaPath = `${linePath} L${x(DAYS.length - 1)},${y(yMin)} L${x(0)},${y(yMin)} Z`;

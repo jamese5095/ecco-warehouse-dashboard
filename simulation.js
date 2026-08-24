@@ -1,5 +1,6 @@
 const JULY_SOURCE = window.JULY_SHOES;
 const JULY_DAYS = JULY_SOURCE?.days || [];
+const SIM_PRESSURE = JULY_SOURCE?.meta?.pressureThresholds || { observation: .7, high: .85, capacity: 1 };
 const DATA_BASE_TOTAL = JULY_DAYS.length ? JULY_DAYS[JULY_DAYS.length - 1].stock : 933168;
 const ESTIMATED_PALLET_SHARE = 638604 / (638604 + 356806);
 const ESTIMATED_PALLET_STOCK = Math.round(DATA_BASE_TOTAL * ESTIMATED_PALLET_SHARE);
@@ -73,9 +74,9 @@ function dateAtBusinessDay(offset) {
 
 function rating(maxUtilization, hasShortage) {
   if (hasShortage) return { grade: "D", label: "计划异常", tone: "danger" };
-  if (maxUtilization > 1) return { grade: "D", label: "预计超载", tone: "danger" };
-  if (maxUtilization >= .85) return { grade: "C", label: "空间紧张", tone: "warning" };
-  if (maxUtilization >= .7) return { grade: "B", label: "状态正常", tone: "normal" };
+  if (maxUtilization > SIM_PRESSURE.capacity) return { grade: "D", label: "预计超载", tone: "danger" };
+  if (maxUtilization >= SIM_PRESSURE.high) return { grade: "C", label: "空间紧张", tone: "warning" };
+  if (maxUtilization >= SIM_PRESSURE.observation) return { grade: "B", label: "状态正常", tone: "normal" };
   return { grade: "A", label: "空间宽松", tone: "good" };
 }
 
@@ -214,16 +215,16 @@ function calculate() {
   document.querySelector("#workday-note").textContent = `按目标日期前 ${workdays} 个工作日平均计算`;
 
   const pressureForecast = pressureKey === "pallet" ? pallet : loose;
-  const warningDay = crossingDay(pressureZone.current, pressureForecast, pressureZone.capacity, .85, workdays);
+  const warningDay = crossingDay(pressureZone.current, pressureForecast, pressureZone.capacity, SIM_PRESSURE.high, workdays);
   const capacityDay = crossingDay(pressureZone.current, pressureForecast, pressureZone.capacity, 1, workdays);
   updateTimelineMarker("#warning-marker", warningDay, workdays);
   updateTimelineMarker("#capacity-marker", capacityDay, workdays);
-  document.querySelector("#pressure-zone-title").textContent = `${pressureZone.label}何时进入警戒？`;
+  document.querySelector("#pressure-zone-title").textContent = `${pressureZone.label}何时进入高压区？`;
   document.querySelector("#warning-date").textContent = warningDay === null ? "目标期内未触及" : warningDay === 0 ? "当前已达到" : shortDate(dateAtBusinessDay(warningDay));
   document.querySelector("#capacity-date").textContent = capacityDay === null ? "目标期内未触及" : capacityDay === 0 ? "当前已达到" : shortDate(dateAtBusinessDay(capacityDay));
   document.querySelector("#timeline-target-date").textContent = shortDate(scenario.targetDate);
   document.querySelector("#timeline-summary").textContent = capacityDay !== null ? `预计${shortDate(dateAtBusinessDay(capacityDay))}达到容量上限`
-    : warningDay !== null ? "目标日期前将进入警戒区" : "目标日期前暂未触及85%警戒线";
+    : warningDay !== null ? "目标日期前将进入高压区" : "目标日期前暂未触及85%高压提示线";
 }
 
 form.addEventListener("submit", (event) => {
