@@ -3,7 +3,7 @@
 .portal-shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 25px 0 0; }
 .portal-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .portal-nav .nav-brand { font-size: 12px; }
-.portal-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: end; gap: clamp(50px, 8vw, 100px); padding: clamp(66px, 8vw, 92px) 0 70px; }
+.portal-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: end; gap: clamp(50px, 8vw, 100px); padding: clamp(66px, 8vw, 92px) 0 34px; }
 .portal-copy { min-width: 0; }
 .portal-kicker { margin-bottom: 18px; color: #ff6666; font-size: 12px; font-weight: 850; letter-spacing: .12em; }
 .portal-copy h1 { max-width: 760px !important; font-size: clamp(58px, 7.7vw, 92px) !important; font-weight: 850 !important; line-height: .96; letter-spacing: -.065em !important; }
@@ -26,6 +26,10 @@
 .portal-credit dt { color: #888; font-size: 10px; letter-spacing: .08em; }
 .portal-credit dd { margin: 4px 0 0; color: #fff; font-size: 14px; font-weight: 800; }
 .credit-status { margin-top: 18px; color: #ff6666; font-size: 9px; font-weight: 850; letter-spacing: .12em; }
+.portal-authorship { display: grid; grid-template-columns: .42fr 1fr; gap: 1px; overflow: hidden; margin-bottom: 16px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.1); border-radius: 13px; }
+.portal-authorship > div { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; min-height: 66px; padding: 14px 18px; background: rgba(255,255,255,.035); }
+.portal-authorship span { color: #8d8d8d; font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+.portal-authorship strong { color: #fff; font-size: 13px; font-weight: 800; line-height: 1.55; }
 .portal-context { display: flex; flex-wrap: wrap; gap: 9px; padding: 18px 0 22px; border-top: 1px solid rgba(255,255,255,.1); }
 .portal-context span { padding: 6px 9px; color: #adadad; background: rgba(255,255,255,.045); border-radius: 999px; font-size: 10px; }
 
@@ -76,6 +80,7 @@
   .portal-hero-grid { grid-template-columns: 1fr; gap: 28px; padding: 68px 0 54px; }
   .portal-credit { min-height: 0; }
   .portal-credit dl { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 38px; }
+  .portal-authorship { grid-template-columns: 1fr; }
   .section-intro { grid-template-columns: 1fr; gap: 18px; }
   .module-grid, .insight-grid { grid-template-columns: 1fr; }
   .module-card { min-height: 360px; }
@@ -88,6 +93,7 @@
   .portal-copy h1 { font-size: 52px !important; }
   .portal-claim { font-size: 20px !important; }
   .portal-credit dl { grid-template-columns: 1fr; gap: 0; }
+  .portal-authorship > div { align-items: flex-start; grid-template-columns: 1fr; gap: 5px; }
   .global-nav-links { width: 100%; overflow-x: auto; }
   .module-card { min-height: 350px; padding: 25px; border-radius: 16px; }
   .module-card h3 { margin-top: 40px; }
