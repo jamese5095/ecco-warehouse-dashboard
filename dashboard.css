@@ -111,12 +111,12 @@
 .milestone-grid strong { display: block; margin-top: 8px; font-size: 27px; letter-spacing: -.04em; }
 .milestone-grid small { display: block; margin-top: 11px; color: #909090; font-size: 10px; }
 
-.future-bridge { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; margin-top: clamp(58px, 8vw, 88px); padding: clamp(32px, 5vw, 54px); color: #fff; background: #252525; border-radius: 20px; box-shadow: inset 5px 0 0 var(--sf-red); }
-.future-bridge h2 { font-size: clamp(29px, 4vw, 48px); line-height: 1.12; letter-spacing: -.045em; }
-.future-bridge-copy { display: flex; flex-direction: column; justify-content: space-between; }
-.future-bridge-copy p { color: #aaa; font-size: 12px; line-height: 1.8; }
-.future-bridge-copy a { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; padding: 15px 17px; color: #fff; background: var(--sf-red); border-radius: 10px; font-size: 12px; font-weight: 850; text-decoration: none; }
-.future-bridge-copy a span { font-size: 18px; }
+.data-update-bridge { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; margin-top: clamp(58px, 8vw, 88px); padding: clamp(32px, 5vw, 54px); color: #fff; background: #252525; border-radius: 20px; box-shadow: inset 5px 0 0 var(--sf-red); }
+.data-update-bridge h2 { font-size: clamp(29px, 4vw, 48px); line-height: 1.12; letter-spacing: -.045em; }
+.data-update-copy { display: flex; flex-direction: column; justify-content: space-between; }
+.data-update-copy p { color: #aaa; font-size: 12px; line-height: 1.8; }
+.update-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 30px; }
+.update-tags span { padding: 8px 11px; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.11); border-radius: 999px; font-size: 10px; font-weight: 800; }
 .data-basis { margin-top: 18px; padding: 0; overflow: hidden; }
 .data-basis summary { display: flex; align-items: center; justify-content: space-between; padding: 19px 22px; font-size: 12px; font-weight: 800; cursor: pointer; }
 .data-basis summary span { color: #999; font-size: 9px; font-weight: 500; }
@@ -133,7 +133,7 @@
   .day-summary-grid { grid-template-columns: 1fr; }
   .state-card { min-height: 250px; }
   .milestone-grid { grid-template-columns: 1fr 1fr; }
-  .future-bridge { grid-template-columns: 1fr; gap: 28px; }
+  .data-update-bridge { grid-template-columns: 1fr; gap: 28px; }
 }
 
 @media (max-width: 620px) {
@@ -165,7 +165,7 @@
   .milestone-grid { grid-template-columns: 1fr 1fr; }
   .milestone-grid button { min-height: 180px; padding: 19px; }
   .milestone-grid b { margin-top: 28px; }
-  .future-bridge { border-radius: 16px; }
+  .data-update-bridge { border-radius: 16px; }
   .data-basis summary { align-items: flex-start; flex-direction: column; gap: 5px; }
   .data-basis > div { grid-template-columns: 1fr; }
 }
