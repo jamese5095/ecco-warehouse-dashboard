@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="青浦消费品仓发货岗位现场洞察报告：发货流程、订单差异、拣货可达性、异常闭环与仓运协同。">
+<title>发货岗位现场洞察报告｜青浦消费品仓智能看板 Demo</title>
+<style>
+  :root{
+    --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
+    --bg:#f5f7fa; --card:#fff; --text:#1f2328; --muted:#656d76; --border:#e6e8eb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.7;}
+  header{background:linear-gradient(135deg,#16263f,#2f81f7); color:#fff; padding:28px 24px; text-align:center; position:relative;}
+  header .back{position:absolute; left:20px; top:20px; z-index:5; display:inline-flex; align-items:center; gap:6px; padding:6px 16px; color:#fff; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:20px; box-shadow:0 1px 6px rgba(0,0,0,.15); font-size:13px; text-decoration:none;}
+  header .back:hover{background:rgba(255,255,255,.25);}
+  header .badge-row{margin-top:10px;}
+  header .domain{display:inline-block; padding:4px 16px; background:rgba(255,255,255,.14); border-radius:20px; font-size:13px;}
+  header h1{margin-top:10px; font-size:24px; font-weight:700; letter-spacing:1px;}
+  header p{margin-top:8px; font-size:14px; opacity:.9;}
+  .container{max-width:1000px; margin:0 auto; padding:0 18px 60px;}
+  .card{margin-top:26px; padding:24px; background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);}
+  .card h2{display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:20px;}
+  .card h2 .num{display:inline-flex; width:34px; height:34px; flex-shrink:0; align-items:center; justify-content:center; color:#fff; border-radius:50%; font-size:16px;}
+  .card h3{margin:16px 0 6px; color:var(--primary); font-size:15px;}
+  .card .desc{margin-bottom:14px; color:var(--muted); font-size:13px;}
+  .badge{padding:3px 12px; color:#fff; border-radius:20px; font-size:12px; font-weight:500; white-space:nowrap;}
+  .badge.blue{background:var(--primary);}.badge.green{background:var(--green);}.badge.orange{background:var(--orange);}.badge.red{background:var(--red);}.badge.purple{background:#8250df;}
+  table{width:100%; margin-top:16px; border-collapse:collapse; font-size:13px;}
+  th,td{padding:9px 11px; border:1px solid var(--border); text-align:left; vertical-align:top;}
+  th{background:#f0f4f9; font-weight:600;} tr:nth-child(even) td{background:#fafbfc;}
+  ul,ol{margin:8px 0 8px 22px;} li{margin:6px 0;}
+  .tip{margin-top:20px; padding:12px 16px; color:#6b5200; background:#fff8e6; border-left:4px solid #f5a623; border-radius:0 8px 8px 0; font-size:13px;}
+  .callout{margin:16px 0; padding:14px 18px; color:#1a3a6b; background:#eef4ff; border-left:4px solid var(--primary); border-radius:0 8px 8px 0; font-size:14px;}
+  .callout strong{color:#0b2a5b;}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .meta .item{padding:6px 12px; color:var(--muted); background:#f0f4f9; border:1px solid var(--border); border-radius:8px; font-size:12px;}
+  .meta .item b{color:var(--text);}
+  .mermaid{display:flex; width:100%; justify-content:flex-start; margin:12px 0 4px; overflow-x:auto;}
+  .mermaid svg{max-width:100%; height:auto;}
+  .priority-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;}
+  .priority-grid article{padding:16px; background:#f7f7f5; border:1px solid var(--border); border-radius:10px;}
+  .priority-grid span{color:var(--red); font-size:10px; font-weight:700;}
+  .priority-grid b{display:block; margin-top:8px; font-size:14px;}
+  .priority-grid p{margin-top:5px; color:var(--muted); font-size:12px;}
+  footer{margin:36px 0 10px; color:var(--muted); font-size:12px; text-align:center;}
+  @media(max-width:620px){.priority-grid{grid-template-columns:1fr;}}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body class="report-page">
+
+<header>
+  <a class="back" href="operations.html#dispatch">← 返回发货拣选域</a>
+  <div class="badge-row"><span class="domain">🚚 发货域 · Picking / Dispatch</span></div>
+  <h1>发货岗位 · 现场洞察报告</h1>
+  <p>从仓内出库到仓运协同 · 拣货可达性 / 异常闭环 / 责任交接 / 履约传导</p>
+</header>
+
+<div class="container">
+  <div class="card">
+    <div class="meta">
+      <div class="item">📌 <b>主题</b>：发货作业与仓运履约优化</div>
+      <div class="item">📍 <b>发现岗位</b>：发货岗</div>
+      <div class="item">🗓️ <b>报告日期</b>：2026-08-24</div>
+      <div class="item">🧑‍💻 <b>报告人</b>：易楷杰</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#2f81f7;">1</span> 工作内容总览 <span class="badge blue">Overview</span></h2>
+    <div class="desc">发货岗连接客户订单、仓内库存与物流运输，是仓库由“保管”转向“履约”的关键节点</div>
+    <table>
+      <tr><th>历练项目</th><th>具体内容</th></tr>
+      <tr><td><b>补单发货（2B）</b></td><td>邮件接收、通天晓系统导入、波次释放、按件拣货、复核打包及发货。</td></tr>
+      <tr><td><b>主单发货</b></td><td>波次释放、临时仓整托整箱拣货、系统操作及发运标签粘贴。</td></tr>
+      <tr><td><b>2C订单发货</b></td><td>多平台个人订单的拣货、包装、贴标、称重及快递或物流发运。</td></tr>
+      <tr><td><b>发货交接</b></td><td>与司机核对数量、点货确认、装车及运输责任转交。</td></tr>
+      <tr><td><b>复核台操作</b></td><td>扫码核对SKU与数量、标签处理、系统操作、封箱及库存还账。</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#8250df;">2</span> 发货流程 <span class="badge purple">Flow</span></h2>
+    <div class="desc">从ECCO出库需求下发到发货报告同步，信息流与实物流共同完成履约闭环</div>
+    <div class="mermaid">
+flowchart LR
+    A[ECCO发起出库需求] --> B[SAP发送EDI至OFS]
+    B --> C[OFS转发至WMS]
+    C --> D[邮件与EDI核对]
+    D --> E[波次生成与释放]
+    E --> F[打印拣货单]
+    F --> G[分类型拣货]
+    G --> H[扫码复核与打包]
+    H --> I[待发区与司机交接]
+    I --> J[发货报告同步]
+    style A fill:#2f81f7,color:#fff
+    style I fill:#f0883e,color:#fff
+    style J fill:#238636,color:#fff
+    </div>
+    <table>
+      <tr><th>#</th><th>流程阶段</th><th>关键动作</th><th>控制点</th></tr>
+      <tr><td>1</td><td><b>订单接收</b></td><td>确认WMS接收EDI；核对邮件与系统信息；对需人工导入的订单导入Excel明细。</td><td>订单数、SKU数和数量保持一致。</td></tr>
+      <tr><td>2</td><td><b>波次释放</b></td><td>生成波次、运行释放、打印拣货单并交接拣货员。</td><td>波次状态与实物任务同步。</td></tr>
+      <tr><td>3</td><td><b>拣货作业</b></td><td>主单按箱、补单按件、2C按款号尺码完成拣货。</td><td>库位、SKU、数量准确。</td></tr>
+      <tr><td>4</td><td><b>复核打包</b></td><td>扫码复核；按订单及商品类型完成包装、标签、清单和称重。</td><td>商品、订单、面单一致。</td></tr>
+      <tr><td>5</td><td><b>发运交接</b></td><td>转移至待发区；与司机点数、装车并留存运输四联单。</td><td>数量确认与责任边界清晰。</td></tr>
+      <tr><td>6</td><td><b>进度同步</b></td><td>更新备货与发货进度，向ECCO发送《发货报告》。</td><td>履约状态及时、可追踪。</td></tr>
+    </table>
+    <div class="callout"><strong>核心控制点：</strong>EDI与邮件一致 · 波次任务有效 · 扫码复核准确 · 包装符合订单要求 · 仓运交接有据可查</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#f0883e;">3</span> 订单类型差异 <span class="badge orange">Order Types</span></h2>
+    <div class="desc">三类订单对效率、准确性与包装精度的要求不同，不能使用同一套作业尺度评价</div>
+    <table>
+      <tr><th>维度</th><th>主单</th><th>补单</th><th>2C订单</th></tr>
+      <tr><td><b>订单特点</b></td><td>批量大，整箱为主</td><td>数量分散，按件处理</td><td>单件或小批量，多平台</td></tr>
+      <tr><td><b>拣货方式</b></td><td>按波次批量整箱拣货</td><td>人工按件拣货</td><td>按款号、尺码和订单拣货</td></tr>
+      <tr><td><b>系统操作</b></td><td>按箱批量处理，相对标准化</td><td>人工核对较多，操作更灵活</td><td>关注面单及订单状态</td></tr>
+      <tr><td><b>包装要求</b></td><td>粘贴发运标签</td><td>鞋、服装和配饰分类包装</td><td>精细包装、平台附件与逐件称重</td></tr>
+      <tr><td><b>主要风险</b></td><td>漏箱、错箱</td><td>错拣、漏拣及异常混放</td><td>错发、包装瑕疵及消费者投诉</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#d1242f;">4</span> 洞察一 · 临时仓拣货可达性 <span class="badge red">Layout</span></h2>
+    <div class="desc">托盘摆放更重视存储密度，目标箱位于内侧时需要移动整托才能完成扫码和拣选</div>
+    <div class="mermaid">
+flowchart LR
+    A[托盘紧密摆放] --> B[目标箱位于托盘内侧]
+    B --> C[无法直接靠近扫码]
+    C --> D[拖拽整托移位]
+    D --> E[定位并拣选目标箱]
+    E --> F[整托复位]
+    D --> R1[增加无效动作]
+    D --> R2[增加体力与安全风险]
+    D --> R3[延长按箱拣货时间]
+    style D fill:#d1242f,color:#fff
+    </div>
+    <table>
+      <tr><th>观察</th><th>成因</th><th>作业影响</th><th>改善方向</th></tr>
+      <tr><td>托盘间距小，箱码统一朝外，但内侧货箱不可直接触达。</td><td>布局优先追求临时存储密度，未充分考虑拣货员侧身、扫码和取箱空间。</td><td>增加拖托、复位和重复定位动作，同时带来搬运安全风险。</td><td>现场测量后定义最小操作间隙；将“可扫码、可侧身、可取箱”纳入托盘摆放标准。</td></tr>
+    </table>
+    <div class="tip">✅ <b>可落地建议：</b>不直接设定未经验证的固定间距，先按人员、托盘和扫码动作完成现场测量，再形成临时仓摆放红线与操作通道标准。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#d1242f;">5</span> 洞察二 · 异常处理链路过长 <span class="badge red">Exception</span></h2>
+    <div class="desc">补单错拣后的处理跨越查询、暂存、归位、重拣和盘点，多次人工传递增加二次差错概率</div>
+    <div class="mermaid">
+flowchart LR
+    A[发现拣货错误] --> B[盘点人员查询原库位]
+    B --> C[错误商品暂存工作区]
+    C --> D[归还原库位]
+    D --> E[查询正确商品库位]
+    E --> F[重新拣货]
+    F --> G[库存盘点确认]
+    C -.混入正常货物.-> R[二次错拣风险]
+    style C fill:#f0883e,color:#fff
+    style R fill:#d1242f,color:#fff
+    </div>
+    <h3>建议的异常闭环</h3>
+    <ol>
+      <li><b>设置异常隔离区</b>：错误商品不得继续放在正常工作区或待发货区域。</li>
+      <li><b>实行一件一标识</b>：标明原订单、SKU、错误原因、当前状态和责任人。</li>
+      <li><b>系统生成退回任务</b>：通过扫码引导归位和重新拣货，减少人工查询及口头交接。</li>
+      <li><b>记录异常根因</b>：按SKU、库位、波次和错误类型汇总，识别高频差错来源。</li>
+    </ol>
+    <div class="callout"><strong>改善目标：</strong>不仅缩短异常处理时间，更要避免异常商品与正常货物混放，使每件异常商品始终处于可识别、可追踪的状态。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#238636;">6</span> 仓运协同与履约传导 <span class="badge green">Supply Chain</span></h2>
+    <div class="desc">仓库完成装车只代表实物责任转移，客户履约仍沿运输、渠道或终端消费者继续向下延伸</div>
+    <div class="mermaid">
+flowchart LR
+    A[仓库发货] --> B[司机点数与单据签署]
+    B --> C[物流运输]
+    C --> D{订单去向}
+    D -->|主单/补单| E[B端渠道履约]
+    D -->|2C| F[终端消费者履约]
+    E --> G[缺货与渠道销售风险]
+    F --> H[退货、差评与售后成本]
+    style A fill:#238636,color:#fff
+    style G fill:#d1242f,color:#fff
+    style H fill:#d1242f,color:#fff
+    </div>
+    <table>
+      <tr><th>供应链议题</th><th>当前观察</th><th>建议方向</th></tr>
+      <tr><td><b>仓运责任交接</b></td><td>仓库与司机点数、留存四联单后完成责任转交。</td><td>多仓统一暂存、点数、签单和责任边界标准，减少货损与丢失争议。</td></tr>
+      <tr><td><b>运输资源协同</b></td><td>发货进度主要同步给ECCO，运输端信息联动有限。</td><td>将预计货量、发运时间和车辆需求提前同步承运商，减少待发区积压和车辆等待。</td></tr>
+      <tr><td><b>B端履约风险</b></td><td>主单、补单错发漏发可能造成下游客户缺货。</td><td>以订单准确率和完整交付率共同评价发货质量。</td></tr>
+      <tr><td><b>2C体验风险</b></td><td>包装瑕疵或错发直接影响消费者体验。</td><td>加强面单、商品、附件、包装和称重的一致性校验。</td></tr>
+    </table>
+    <div class="priority-grid">
+      <article><span>优先改善 01</span><b>异常隔离与系统闭环</b><p>先降低二次错拣和库存差异风险。</p></article>
+      <article><span>优先改善 02</span><b>临时仓可达性标准</b><p>减少拖托、复位等无效动作。</p></article>
+      <article><span>协同建设 03</span><b>仓运交接标准化</b><p>明确数量、单据与责任转移边界。</p></article>
+      <article><span>协同建设 04</span><b>发货信息向运输端延伸</b><p>用预计货量支持车辆资源安排。</p></article>
+    </div>
+  </div>
+
+  <div class="tip">💡 <strong>总结：</strong>发货岗的价值不只是“把货发出去”，而是以准确、及时、包装合规、交接清晰和信息可追踪的方式，完成从仓内作业到供应链履约的连接。</div>
+</div>
+
+<footer>发货岗位现场洞察报告 · 青浦消费品仓智能看板 Demo · 2026-08-24</footer>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#fff0f0',primaryTextColor:'#1c1c1c',primaryBorderColor:'#e60000',lineColor:'#6b6963',secondaryColor:'#f1f2f2',tertiaryColor:'#f7f7f7',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });
+</script>
+</body>
+</html>
