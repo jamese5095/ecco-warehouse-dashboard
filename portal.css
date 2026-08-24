@@ -9,6 +9,7 @@
 .portal-copy h1 { max-width: 760px !important; font-size: clamp(58px, 7.7vw, 92px) !important; font-weight: 850 !important; line-height: .96; letter-spacing: -.065em !important; }
 .portal-copy h1 span { color: #fff; }
 .portal-copy h1 .title-main { white-space: nowrap; }
+.portal-copy h1 .title-demo { display: inline-block; margin-left: 14px; padding: 6px 8px 5px; color: #ff7777; border: 1px solid rgba(255,119,119,.45); border-radius: 6px; font-size: clamp(12px, 1.3vw, 16px); font-style: normal; font-weight: 850; line-height: 1; letter-spacing: .09em; vertical-align: .36em; }
 .portal-claim { max-width: 720px; margin: 32px 0 0 !important; color: #fff !important; font-size: clamp(20px, 2.45vw, 28px) !important; font-weight: 720; line-height: 1.42 !important; letter-spacing: -.025em; }
 .portal-description { max-width: 700px; margin: 16px 0 0 !important; color: #a9a9a9 !important; font-size: 14px !important; line-height: 1.8 !important; }
 .portal-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
@@ -98,4 +99,5 @@
 
 @media (max-width: 360px) {
   .portal-copy h1 { font-size: 44px !important; }
+  .portal-copy h1 .title-demo { margin-left: 8px; padding: 5px 6px 4px; font-size: 10px; }
 }
