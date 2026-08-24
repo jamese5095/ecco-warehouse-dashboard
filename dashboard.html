@@ -72,19 +72,9 @@
               <div class="history-position"><span>7月历史位置</span><strong id="history-position">P97 · 月内高位</strong></div>
             </div>
           </div>
-          <figure class="capacity-scale" aria-label="完整库容比例标尺">
-            <figcaption>完整容量比例</figcaption>
-            <div class="capacity-scale-body">
-              <div class="capacity-ticks" aria-hidden="true"><span>100%</span><span>85%</span><span>70%</span><span>0%</span></div>
-              <div class="capacity-meter">
-                <span class="capacity-zone normal"></span>
-                <span class="capacity-zone observe"></span>
-                <span class="capacity-zone high"></span>
-                <span class="capacity-current" id="capacity-current" style="bottom:71%"><i id="selected-utilization">71.0%</i></span>
-              </div>
-            </div>
-            <small>100% = 1,314,855双</small>
-          </figure>
+          <div class="utilization-gauge" id="utilization-gauge" style="--gauge-value:71%">
+            <div><strong id="selected-utilization">71.0%</strong><span>库容利用率</span></div>
+          </div>
         </article>
 
         <div class="flow-cards">
@@ -114,11 +104,11 @@
 
     <section class="chart-card stock-chart-card" aria-labelledby="stock-chart-title">
       <div class="chart-heading">
-        <div><div class="dashboard-label">库存轨迹 · STOCK LEVEL</div><h2 id="stock-chart-title">库存月末快速升至本月高位</h2></div>
-        <div class="chart-legend"><span class="legend-stock">实际库存</span><span class="legend-watch">70%观察起点</span></div>
+        <div><div class="dashboard-label">库存轨迹 · STOCK LEVEL</div><h2 id="stock-chart-title">库存利用率月末快速升至本月高位</h2></div>
+        <div class="chart-legend"><span class="legend-stock">库存利用率</span><span class="legend-watch">70%观察起点</span><span class="legend-warning">85%高压提示</span></div>
       </div>
       <div class="chart-frame"><svg id="stock-chart" role="img" aria-label="7月每日鞋类库存趋势图"></svg></div>
-      <div class="chart-reading"><strong id="stock-story-number">+213,697 双</strong><span id="stock-story-copy">7月1日至31日库存净增，主要增量集中在月末一周。</span><small>趋势图聚焦65万—100万双；完整容量比例见上方标尺。</small></div>
+      <div class="chart-reading"><strong id="stock-story-number">+213,697 双</strong><span id="stock-story-copy">7月1日至31日库存净增，主要增量集中在月末一周。</span><small>纵轴显示50%—85%库容利用率 · 库存峰值936,709双</small></div>
     </section>
 
     <section class="chart-card flow-chart-card" aria-labelledby="flow-chart-title">

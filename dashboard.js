@@ -85,9 +85,9 @@ function updateSelectedDay() {
 
   const stateCard = document.querySelector("#state-card");
   stateCard.dataset.grade = state.grade;
-  const capacityCurrent = document.querySelector("#capacity-current");
-  capacityCurrent.style.bottom = `${Math.min(100, day.utilization * 100)}%`;
-  capacityCurrent.closest(".capacity-scale").setAttribute("aria-label", `${date.label}库容利用率${formatPercent(day.utilization)}；70%为观察起点，85%为高压提示线`);
+  const gauge = document.querySelector("#utilization-gauge");
+  gauge.style.setProperty("--gauge-value", `${Math.min(100, day.utilization * 100)}%`);
+  gauge.setAttribute("aria-label", `${date.label}库容利用率${formatPercent(day.utilization)}`);
   updateSliderTrack();
   updateChartSelection();
 }
@@ -112,8 +112,8 @@ function renderStockChart() {
   const margin = { top: 25, right: 24, bottom: 38, left: 62 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
-  const yMin = 650000;
-  const yMax = 1000000;
+  const yMin = .5;
+  const yMax = PRESSURE.high;
   const x = (index) => margin.left + index / (DAYS.length - 1) * plotWidth;
   const y = (value) => margin.top + (yMax - value) / (yMax - yMin) * plotHeight;
 
@@ -127,20 +127,22 @@ function renderStockChart() {
   defs.appendChild(gradient);
   svg.appendChild(defs);
 
-  const observationValue = CAPACITY * PRESSURE.observation;
+  const observationValue = PRESSURE.observation;
   svg.appendChild(svgElement("rect", {
     x: margin.left, y: y(yMax), width: plotWidth, height: y(observationValue) - y(yMax), fill: "#fff8e8",
   }));
 
-  [650000, 700000, 800000, 900000, 1000000].forEach((value) => {
+  [.5, .6, .7, .8, PRESSURE.high].forEach((value) => {
     const lineY = y(value);
     svg.appendChild(svgElement("line", { x1: margin.left, x2: width - margin.right, y1: lineY, y2: lineY, class: "chart-grid-line" }));
-    addSvgText(svg, margin.left - 11, lineY + 3, `${Math.round(value / 10000)}万`, "chart-axis-label", "end");
+    addSvgText(svg, margin.left - 11, lineY + 3, formatPercent(value), "chart-axis-label", "end");
   });
   svg.appendChild(svgElement("line", { x1: margin.left, x2: width - margin.right, y1: y(observationValue), y2: y(observationValue), class: "chart-observation-line" }));
-  addSvgText(svg, margin.left + 10, y(observationValue) - 7, `70%观察起点 · ${formatNumber(observationValue)}`, "chart-threshold-label").setAttribute("fill", "#a87300");
+  addSvgText(svg, margin.left + 10, y(observationValue) - 7, "70%观察起点", "chart-threshold-label").setAttribute("fill", "#a87300");
+  svg.appendChild(svgElement("line", { x1: margin.left, x2: width - margin.right, y1: y(PRESSURE.high), y2: y(PRESSURE.high), class: "chart-high-line" }));
+  addSvgText(svg, width - margin.right, y(PRESSURE.high) + 14, "85%高压提示", "chart-threshold-label", "end").setAttribute("fill", "#b45d24");
 
-  const linePath = DAYS.map((day, index) => `${index ? "L" : "M"}${x(index).toFixed(1)},${y(day.stock).toFixed(1)}`).join(" ");
+  const linePath = DAYS.map((day, index) => `${index ? "L" : "M"}${x(index).toFixed(1)},${y(day.utilization).toFixed(1)}`).join(" ");
   const areaPath = `${linePath} L${x(DAYS.length - 1)},${y(yMin)} L${x(0)},${y(yMin)} Z`;
   svg.appendChild(svgElement("path", { d: areaPath, class: "stock-area" }));
   svg.appendChild(svgElement("path", { d: linePath, class: "stock-line" }));
@@ -149,7 +151,7 @@ function renderStockChart() {
   svg.appendChild(guide);
 
   DAYS.forEach((day, index) => {
-    const point = svgElement("circle", { cx: x(index), cy: y(day.stock), r: 3.4, class: "stock-point", "data-index": index, tabindex: "0", role: "button", "aria-label": `${dateParts(day.date).label}库存${formatNumber(day.stock)}双` });
+    const point = svgElement("circle", { cx: x(index), cy: y(day.utilization), r: 3.4, class: "stock-point", "data-index": index, tabindex: "0", role: "button", "aria-label": `${dateParts(day.date).label}库存${formatNumber(day.stock)}双，库容利用率${formatPercent(day.utilization)}` });
     svg.appendChild(point);
   });
 
@@ -236,7 +238,7 @@ function updateChartSelection() {
     const badge = stockSvg.querySelector("#stock-selected-badge");
     const badgeX = Math.min(1050, Math.max(110, pointX));
     badge.setAttribute("transform", `translate(${badgeX} ${Math.max(48, pointY)})`);
-    badge.querySelector("text").textContent = formatNumber(DAYS[selectedIndex].stock);
+    badge.querySelector("text").textContent = formatPercent(DAYS[selectedIndex].utilization);
   }
 
   const flowSvg = document.querySelector("#flow-chart");
