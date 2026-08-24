@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>仓库全流程｜青浦消费品仓智能看板 Demo</title>
+<title>仓库全流程｜青浦消费品仓运营看板 Demo</title>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <style>
   :root{
@@ -91,14 +91,14 @@
   .insight-link:hover{background:#dcebff; border-color:var(--primary);}
   footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
 </style>
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=20260824-3">
 </head>
 <body class="home-page operations-page">
 
 <header>
   <div class="hero-shell">
     <div class="hero-top">
-      <a class="nav-brand" href="index.html">SF QINGPU · WAREHOUSE INTELLIGENCE</a>
+        <a class="nav-brand" href="index.html">SF QINGPU · WAREHOUSE OPERATIONS</a>
       <nav class="global-nav-links" aria-label="项目导航">
         <a href="index.html">项目首页</a>
         <a href="dashboard.html">日级看板</a>
@@ -140,7 +140,7 @@
     <div class="guide-steps">
       <div><span>01</span><b>先看全流程</b><p>建立收货、库存与发货之间的整体关系。</p></div>
       <div><span>02</span><b>再选运营域</b><p>查看各环节的岗位任务、工具与操作要点。</p></div>
-      <div><span>03</span><b>下钻洞察</b><p>进入现场报告，理解问题、成因与改进建议。</p></div>
+      <div><span>03</span><b>进入现场</b><p>阅读观察报告，理解问题、成因与改进建议。</p></div>
     </div>
   </section>
 
@@ -190,7 +190,7 @@ flowchart LR
       <tr><td>5</td><td>收货确认 (RF)</td><td>系统 RF 收货、绑箱、打印上架单</td></tr>
       <tr><td>6</td><td>不合格品处理</td><td>破损/潮湿差异反馈、对应单据与照片</td></tr>
     </table>
-    <a class="insight-link" href="receiving-insight.html">📄 查看收货现场洞察报告（实物动线 · 差异道堆积/搬运冲突/通道安全）→</a>
+    <a class="insight-link" href="receiving-insight.html">📄 查看收货现场观察报告（实物动线 · 差异道堆积/搬运冲突/通道安全）→</a>
   </div>
 
   <!-- 上架 -->
@@ -238,7 +238,7 @@ flowchart LR
     style A fill:#2f81f7,color:#fff
     </div></div>
     <div class="legend"><span class="tag tool">交付物</span>RF截图 · 码放检查照 · 现场上架照 · 系统盘点表 · 差异处理</div>
-    <a class="insight-link" href="count-insight.html">📄 查看盘点现场洞察报告（账实不符 · 信息流时滞解析）→</a>
+    <a class="insight-link" href="count-insight.html">📄 查看盘点现场观察报告（账实不符 · 信息流时滞解析）→</a>
   </div>
 
   <!-- 发货拣选 -->
@@ -265,7 +265,7 @@ flowchart LR
       <tr><td>5</td><td>零箱订单出库</td><td>零箱拣货复核打包发运</td></tr>
       <tr><td>6</td><td>服装订单出库</td><td>服装拣货复核打包发运</td></tr>
     </table>
-    <a class="insight-link" href="shipping-insight.html">📄 查看发货岗位现场洞察报告（拣货可达性 · 异常闭环 · 仓运协同）→</a>
+    <a class="insight-link" href="shipping-insight.html">📄 查看发货岗位现场观察报告（拣货可达性 · 异常闭环 · 仓运协同）→</a>
   </div>
 
   <!-- 退货质检 -->
@@ -288,7 +288,7 @@ flowchart LR
       <tr><td>4</td><td>RF 收货流程</td><td>退货入库交接、RF 系统入库</td></tr>
       <tr><td>5</td><td>报废处理流程</td><td>报废品处理及风险点</td></tr>
     </table>
-    <a class="insight-link" href="returns-insight.html">📄 查看退货质检现场洞察报告（质检标准 · RF漏扫 · LPN即时核对）→</a>
+    <a class="insight-link" href="returns-insight.html">📄 查看退货质检现场观察报告（质检标准 · RF漏扫 · LPN即时核对）→</a>
   </div>
 
   <!-- EDP系统 -->
@@ -321,7 +321,7 @@ flowchart LR
 
 </div>
 
-<footer>青浦消费品仓智能看板 Demo · 仓库全流程 · 数据整理自现场文档</footer>
+<footer>青浦消费品仓运营看板 Demo · 仓库全流程 · 数据整理自现场文档</footer>
 
 <script>
   mermaid.initialize({

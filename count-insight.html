@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盘点环节现场洞察报告 · 消费品仓库看板</title>
+<title>盘点环节现场观察报告｜青浦消费品仓运营看板 Demo</title>
 <style>
   :root{
     --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
@@ -81,7 +81,7 @@
   .mermaid svg{max-width:100%; height:auto;}
   footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
 </style>
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=20260824-3">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body class="report-page">
@@ -89,7 +89,7 @@
 <header>
   <a class="back" href="operations.html">← 返回仓库全流程</a>
   <div class="badge-row"><span class="domain">🔍 盘点域 · Inventory Count</span></div>
-  <h1>盘点环节 · 现场洞察报告</h1>
+  <h1>盘点环节 · 现场观察报告</h1>
   <p>「账实不符」背后的信息流时滞问题解析</p>
 </header>
 
@@ -104,6 +104,16 @@
       <div class="item">🧑‍💻 <b>报告人</b>：供应链管培生</div>
     </div>
   </div>
+
+  <section class="report-summary" aria-labelledby="count-summary-title">
+    <div class="report-summary-label">报告摘要 · REPORT SUMMARY</div>
+    <h2 id="count-summary-title">先区分信息时滞与真实错位，再判断库存差异</h2>
+    <div class="report-summary-grid">
+      <article><span>核心发现</span><b>同一双鞋出现账面与实物位置错位</b><p>现场观察可能由已拣未记账造成，也可能是真实放错库位，仍需结合在途单据进一步核实。</p></article>
+      <article><span>主要影响</span><b>盘点差异信号被系统中间状态污染</b><p>盘点人员需要为未核销作业反复核查，真实库存漏洞也更难被快速识别。</p></article>
+      <article><span>优先建议</span><b>盘点前先核对在途波次与未核销任务</b><p>建立在途状态标识和差异复核规则，逐步缩短实物动作与系统记账之间的时间差。</p></article>
+    </div>
+  </section>
 
   <!-- 一、现象 -->
   <div class="card">
@@ -218,7 +228,7 @@ flowchart LR
 
 </div>
 
-<footer>盘点环节现场洞察报告 · 消费品仓库看板 · 2026-08-06</footer>
+<footer>盘点环节现场观察报告 · 青浦消费品仓运营看板 Demo · 2026-08-06</footer>
 
 <script>
   mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#fff0f0',primaryTextColor:'#1c1c1c',primaryBorderColor:'#e60000',lineColor:'#6b6963',secondaryColor:'#f1f2f2',tertiaryColor:'#f7f7f7',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>收货环节现场洞察报告 · 消费品仓库看板</title>
+<title>收货环节现场观察报告｜青浦消费品仓运营看板 Demo</title>
 <style>
   :root{
     --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
@@ -82,7 +82,7 @@
   .mermaid svg{max-width:100%; height:auto;}
   footer{text-align:center; color:var(--muted); font-size:12px; margin:36px 0 10px;}
 </style>
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=20260824-3">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body class="report-page">
@@ -90,7 +90,7 @@
 <header>
   <a class="back" href="operations.html">← 返回仓库全流程</a>
   <div class="badge-row"><span class="domain">📥 收货域 · Receiving</span></div>
-  <h1>收货环节 · 现场洞察报告</h1>
+  <h1>收货环节 · 现场观察报告</h1>
   <p>实物动线视角 · 差异道堆积 / 搬运冲突 / 通道安全 / 质检标准化</p>
 </header>
 
@@ -105,6 +105,16 @@
       <div class="item">🧑‍💻 <b>汇报人</b>：收货小组</div>
     </div>
   </div>
+
+  <section class="report-summary" aria-labelledby="receiving-summary-title">
+    <div class="report-summary-label">报告摘要 · REPORT SUMMARY</div>
+    <h2 id="receiving-summary-title">差异处理能力与现场动线需要同步改善</h2>
+    <div class="report-summary-grid">
+      <article><span>核心发现</span><b>差异道同时承担抽检与异常处理</b><p>扫描资源集中、人员与搬运能力不足，前三道异常件持续汇入同一处理点。</p></article>
+      <article><span>主要影响</span><b>积压、交叉搬运与安全风险叠加</b><p>异常件等待时间增加，并频繁横穿其他工位，干扰正常扫码和主通道作业。</p></article>
+      <article><span>优先建议</span><b>移动RF复核与外侧单向通道</b><p>将异常确认从固定道口释放出来，同时通过待处理区和单向动线减少交叉搬运。</p></article>
+    </div>
+  </section>
 
   <!-- 一、流程环节 -->
   <div class="card">
@@ -215,7 +225,7 @@ flowchart LR
 
 </div>
 
-<footer>收货环节现场洞察报告 · 消费品仓库看板 · 2026-08-06</footer>
+<footer>收货环节现场观察报告 · 青浦消费品仓运营看板 Demo · 2026-08-06</footer>
 
 <script>
   mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#fff0f0',primaryTextColor:'#1c1c1c',primaryBorderColor:'#e60000',lineColor:'#6b6963',secondaryColor:'#f1f2f2',tertiaryColor:'#f7f7f7',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });

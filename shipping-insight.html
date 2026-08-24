@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="青浦消费品仓发货岗位现场洞察报告：发货流程、订单差异、拣货可达性、异常闭环与仓运协同。">
-<title>发货岗位现场洞察报告｜青浦消费品仓智能看板 Demo</title>
+<meta name="description" content="青浦消费品仓发货岗位现场观察报告：发货流程、订单差异、拣货可达性、异常闭环与仓运协同。">
+<title>发货岗位现场观察报告｜青浦消费品仓运营看板 Demo</title>
 <style>
   :root{
     --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
@@ -47,7 +47,7 @@
   footer{margin:36px 0 10px; color:var(--muted); font-size:12px; text-align:center;}
   @media(max-width:620px){.priority-grid{grid-template-columns:1fr;}}
 </style>
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=20260824-3">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body class="report-page">
@@ -55,7 +55,7 @@
 <header>
   <a class="back" href="operations.html#dispatch">← 返回发货拣选域</a>
   <div class="badge-row"><span class="domain">🚚 发货域 · Picking / Dispatch</span></div>
-  <h1>发货岗位 · 现场洞察报告</h1>
+  <h1>发货岗位 · 现场观察报告</h1>
   <p>从仓内出库到仓运协同 · 拣货可达性 / 异常闭环 / 责任交接 / 履约传导</p>
 </header>
 
@@ -68,6 +68,16 @@
       <div class="item">🧑‍💻 <b>报告人</b>：易楷杰</div>
     </div>
   </div>
+
+  <section class="report-summary" aria-labelledby="shipping-summary-title">
+    <div class="report-summary-label">报告摘要 · REPORT SUMMARY</div>
+    <h2 id="shipping-summary-title">提升拣货可达性，并缩短异常商品的处理链路</h2>
+    <div class="report-summary-grid">
+      <article><span>核心发现</span><b>临时仓拖托动作与补单异常链路并存</b><p>托盘间距影响内侧货箱扫码；错拣后还需要经历查询、暂存、归位、重拣和盘点。</p></article>
+      <article><span>主要影响</span><b>无效搬运增加，异常商品存在二次混放风险</b><p>发货效率、作业安全和库存准确性会同时受到影响，差错还可能向运输和客户履约传导。</p></article>
+      <article><span>优先建议</span><b>建立托盘可达性标准与异常隔离区</b><p>先减少拖托和复位，再通过一件一标识及系统退回任务形成异常闭环。</p></article>
+    </div>
+  </section>
 
   <div class="card">
     <h2><span class="num" style="background:#2f81f7;">1</span> 工作内容总览 <span class="badge blue">Overview</span></h2>
@@ -126,7 +136,7 @@ flowchart LR
   </div>
 
   <div class="card">
-    <h2><span class="num" style="background:#d1242f;">4</span> 洞察一 · 临时仓拣货可达性 <span class="badge red">Layout</span></h2>
+    <h2><span class="num" style="background:#d1242f;">4</span> 观察一 · 临时仓拣货可达性 <span class="badge red">Layout</span></h2>
     <div class="desc">托盘摆放更重视存储密度，目标箱位于内侧时需要移动整托才能完成扫码和拣选</div>
     <div class="mermaid">
 flowchart LR
@@ -148,7 +158,7 @@ flowchart LR
   </div>
 
   <div class="card">
-    <h2><span class="num" style="background:#d1242f;">5</span> 洞察二 · 异常处理链路过长 <span class="badge red">Exception</span></h2>
+    <h2><span class="num" style="background:#d1242f;">5</span> 观察二 · 异常处理链路过长 <span class="badge red">Exception</span></h2>
     <div class="desc">补单错拣后的处理跨越查询、暂存、归位、重拣和盘点，多次人工传递增加二次差错概率</div>
     <div class="mermaid">
 flowchart LR
@@ -206,7 +216,7 @@ flowchart LR
   <div class="tip">💡 <strong>总结：</strong>发货岗的价值不只是“把货发出去”，而是以准确、及时、包装合规、交接清晰和信息可追踪的方式，完成从仓内作业到供应链履约的连接。</div>
 </div>
 
-<footer>发货岗位现场洞察报告 · 青浦消费品仓智能看板 Demo · 2026-08-24</footer>
+<footer>发货岗位现场观察报告 · 青浦消费品仓运营看板 Demo · 2026-08-24</footer>
 
 <script>
   mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#fff0f0',primaryTextColor:'#1c1c1c',primaryBorderColor:'#e60000',lineColor:'#6b6963',secondaryColor:'#f1f2f2',tertiaryColor:'#f7f7f7',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });

@@ -36,7 +36,7 @@
 .section-intro h2, .insight-section h2 { font-size: clamp(29px, 4.5vw, 48px); line-height: 1.13; letter-spacing: -.04em; }
 .section-intro > p { margin: 0; color: var(--muted); line-height: 1.8; }
 
-.module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .module-card { position: relative; display: flex; min-height: 420px; overflow: hidden; padding: 34px; border: 1px solid var(--border); border-radius: 22px; color: var(--text); background: #fff; text-decoration: none; box-shadow: var(--shadow); }
 .module-card.dashboard { color: #fff; background: #252525; border-color: #252525; }
 .module-card::after { position: absolute; right: -70px; bottom: -100px; content: ""; width: 260px; height: 260px; border: 1px solid #eceeee; border-radius: 50%; box-shadow: 0 0 0 44px rgba(230,0,0,.025), 0 0 0 88px rgba(230,0,0,.018); }
@@ -44,7 +44,7 @@
 .module-content { position: relative; z-index: 1; display: flex; flex: 1; flex-direction: column; }
 .module-number { color: var(--sf-red); font-size: 11px; font-weight: 850; letter-spacing: .08em; }
 .dashboard .module-number { color: #ff6666; }
-.module-card h3 { max-width: 410px; margin-top: 58px; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.12; letter-spacing: -.035em; }
+.module-card h3 { max-width: 410px; margin-top: 58px; font-size: clamp(27px, 3vw, 38px); line-height: 1.12; letter-spacing: -.035em; }
 .module-card p { max-width: 430px; margin: 16px 0 0; color: var(--muted); line-height: 1.75; }
 .dashboard p { color: #bdbdbd; }
 .module-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }

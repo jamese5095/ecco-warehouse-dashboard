@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="青浦消费品仓退货质检现场洞察报告：退货清点、鞋服质检、RF入库、漏扫风险与改善方案。">
-<title>退货质检现场洞察报告｜青浦消费品仓智能看板 Demo</title>
+<meta name="description" content="青浦消费品仓退货质检现场观察报告：退货清点、鞋服质检、RF入库、漏扫风险与改善方案。">
+<title>退货质检现场观察报告｜青浦消费品仓运营看板 Demo</title>
 <style>
   :root{
     --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
@@ -47,7 +47,7 @@
   footer{margin:36px 0 10px; color:var(--muted); font-size:12px; text-align:center;}
   @media(max-width:620px){.control-grid{grid-template-columns:1fr;}}
 </style>
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css?v=20260824-3">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body class="report-page">
@@ -55,7 +55,7 @@
 <header>
   <a class="back" href="operations.html#returns">← 返回退货质检域</a>
   <div class="badge-row"><span class="domain">↩️ 退货域 · Returns / QC</span></div>
-  <h1>退货质检 · 现场洞察报告</h1>
+  <h1>退货质检 · 现场观察报告</h1>
   <p>从实物验收到系统入库 · 监控留痕 / 质检标准 / LPN计数 / 账实一致</p>
 </header>
 
@@ -68,6 +68,16 @@
       <div class="item">🧑‍💻 <b>报告人</b>：易楷杰</div>
     </div>
   </div>
+
+  <section class="report-summary" aria-labelledby="returns-summary-title">
+    <div class="report-summary-label">报告摘要 · REPORT SUMMARY</div>
+    <h2 id="returns-summary-title">把数量核对前移到每个LPN关闭之前</h2>
+    <div class="report-summary-grid">
+      <article><span>核心发现</span><b>RF扫描页缺少当前LPN实时数量</b><p>扫描员需要跳转页面查看明细，并在连续扫码、关箱和实物处理之间依靠人工累加。</p></article>
+      <article><span>主要影响</span><b>漏扫只能在最终总数不符后暴露</b><p>差异定位范围从当前LPN扩大到多个托盘，需要逐托逐箱反查，耗时且容易再次出错。</p></article>
+      <article><span>优先建议</span><b>实时计数与双人即时复核同时推进</b><p>短期由两人分别扫码和计数，中期在RF页面显示本LPN数量，一致后才能关箱。</p></article>
+    </div>
+  </section>
 
   <div class="card">
     <h2><span class="num" style="background:#2f81f7;">1</span> 流程环节 <span class="badge blue">Flow</span></h2>
@@ -199,7 +209,7 @@ flowchart LR
   <div class="tip">💡 <strong>总结：</strong>退货质检既要判断商品能否重新销售，也要确保每件实物准确进入系统。优化重点不是在总数不符后加快查找，而是让每个LPN在关闭前完成账实核对。</div>
 </div>
 
-<footer>退货质检现场洞察报告 · 青浦消费品仓智能看板 Demo · 2026-08-24</footer>
+<footer>退货质检现场观察报告 · 青浦消费品仓运营看板 Demo · 2026-08-24</footer>
 
 <script>
   mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#fff0f0',primaryTextColor:'#1c1c1c',primaryBorderColor:'#e60000',lineColor:'#6b6963',secondaryColor:'#f1f2f2',tertiaryColor:'#f7f7f7',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });
