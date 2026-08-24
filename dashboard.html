@@ -135,12 +135,27 @@
 
     <section class="data-update-bridge" aria-labelledby="data-update-title">
       <div>
-        <div class="dashboard-label">下一阶段 · DATA UPDATE</div>
-        <h2 id="data-update-title">让7月不只是一次展示，<br>而是持续更新的起点。</h2>
+        <div class="dashboard-label">下一阶段 · LIGHT DATA INPUT</div>
+        <h2 id="data-update-title">一次轻量录入，<br>即可更新当天看板。</h2>
       </div>
       <div class="data-update-copy">
-        <p>下一版本将围绕表格快速导入、字段校验和一键刷新展开，让工作人员能够低成本维护日级看板。</p>
-        <div class="update-tags"><span>Excel导入</span><span>自动校验</span><span>一键刷新</span></div>
+        <p>每天只需填写日期、入库量和出库量；库存由系统自动推算，也可在盘点、月末或补录时用库存快照重新校准。</p>
+        <div class="entry-demo" aria-label="未来每日数据录入界面示例">
+          <div class="entry-demo-head">
+            <div><span>每日数据录入</span><small>界面示例 · 暂未启用</small></div>
+            <b>3项必填</b>
+          </div>
+          <div class="entry-demo-grid">
+            <label><span>日期</span><input type="text" value="2026 / 08 / 24" readonly tabindex="-1"></label>
+            <label><span>入库量</span><div class="entry-input"><input type="text" value="18,420" readonly tabindex="-1"><i>双</i></div></label>
+            <label><span>出库量</span><div class="entry-input"><input type="text" value="12,680" readonly tabindex="-1"><i>双</i></div></label>
+            <label class="optional-field"><span>库存快照 <em>选填</em></span><div class="entry-input"><input type="text" placeholder="自动推算" readonly tabindex="-1"><i>双</i></div></label>
+          </div>
+          <div class="entry-demo-foot">
+            <span>库存 = 前日库存 + 入库 − 出库</span>
+            <div>确认录入 <b>→</b></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -152,6 +167,7 @@
         <p><b>库存</b>：主补单鞋类每日库存快照；鞋类数量统一按1件=1双展示。</p>
         <p><b>压力区间</b>：70%为观察起点、85%为高压提示线、100%为容量上限；前两项为Demo暂定规则，并非仓库正式SOP。</p>
         <p><b>边界</b>：当前数据未直接接入WMS，页面用于验证日级看板体验，不代表正式履约承诺。</p>
+        <p><b>更新逻辑</b>：库存可由上一日库存与当日进出库推算；漏更时可回到对应日期补录，或以任一日期的库存快照重新校准后续水位。</p>
       </div>
     </details>
   </main>

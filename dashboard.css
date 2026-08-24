@@ -111,12 +111,28 @@
 .milestone-grid strong { display: block; margin-top: 8px; font-size: 27px; letter-spacing: -.04em; }
 .milestone-grid small { display: block; margin-top: 11px; color: #909090; font-size: 10px; }
 
-.data-update-bridge { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; margin-top: clamp(58px, 8vw, 88px); padding: clamp(32px, 5vw, 54px); color: #fff; background: #252525; border-radius: 20px; box-shadow: inset 5px 0 0 var(--sf-red); }
+.data-update-bridge { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(42px, 6vw, 76px); margin-top: clamp(58px, 8vw, 88px); padding: clamp(32px, 5vw, 54px); color: #fff; background: #252525; border-radius: 20px; box-shadow: inset 5px 0 0 var(--sf-red); }
 .data-update-bridge h2 { font-size: clamp(29px, 4vw, 48px); line-height: 1.12; letter-spacing: -.045em; }
-.data-update-copy { display: flex; flex-direction: column; justify-content: space-between; }
-.data-update-copy p { color: #aaa; font-size: 12px; line-height: 1.8; }
-.update-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 30px; }
-.update-tags span { padding: 8px 11px; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.11); border-radius: 999px; font-size: 10px; font-weight: 800; }
+.data-update-copy p { max-width: 560px; color: #aaa; font-size: 12px; line-height: 1.8; }
+.entry-demo { margin-top: 24px; padding: 18px; background: #303030; border: 1px solid rgba(255,255,255,.1); border-radius: 15px; box-shadow: 0 18px 42px rgba(0,0,0,.18); }
+.entry-demo-head, .entry-demo-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.entry-demo-head > div { display: flex; align-items: baseline; gap: 9px; }
+.entry-demo-head span { color: #fff; font-size: 12px; font-weight: 850; }
+.entry-demo-head small { color: #777; font-size: 8px; letter-spacing: .06em; }
+.entry-demo-head > b { padding: 5px 8px; color: #ff8a8a; background: rgba(230,0,0,.12); border-radius: 999px; font-size: 8px; letter-spacing: .06em; }
+.entry-demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.entry-demo label { display: block; padding: 9px 10px; background: #282828; border: 1px solid rgba(255,255,255,.08); border-radius: 9px; }
+.entry-demo label > span { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; color: #818181; font-size: 8px; font-weight: 750; }
+.entry-demo label em { color: #ff7777; font-size: 7px; font-style: normal; }
+.entry-demo input { width: 100%; min-width: 0; padding: 0; color: #fff; background: transparent; border: 0; outline: 0; font: inherit; font-size: 12px; font-weight: 800; pointer-events: none; }
+.entry-demo input::placeholder { color: #666; opacity: 1; }
+.entry-input { display: flex; align-items: center; gap: 8px; }
+.entry-input i { color: #777; font-size: 8px; font-style: normal; }
+.optional-field { border-style: dashed !important; }
+.entry-demo-foot { margin-top: 14px; padding-top: 13px; border-top: 1px solid rgba(255,255,255,.07); }
+.entry-demo-foot > span { color: #777; font-size: 8px; }
+.entry-demo-foot > div { display: flex; align-items: center; gap: 16px; padding: 8px 10px; color: #fff; background: var(--sf-red); border-radius: 7px; font-size: 9px; font-weight: 850; }
+.entry-demo-foot b { font-size: 12px; }
 .data-basis { margin-top: 18px; padding: 0; overflow: hidden; }
 .data-basis summary { display: flex; align-items: center; justify-content: space-between; padding: 19px 22px; font-size: 12px; font-weight: 800; cursor: pointer; }
 .data-basis summary span { color: #999; font-size: 9px; font-weight: 500; }
@@ -166,6 +182,9 @@
   .milestone-grid button { min-height: 180px; padding: 19px; }
   .milestone-grid b { margin-top: 28px; }
   .data-update-bridge { border-radius: 16px; }
+  .entry-demo-grid { grid-template-columns: 1fr; }
+  .entry-demo-head > div { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .entry-demo-foot { align-items: flex-start; flex-direction: column; }
   .data-basis summary { align-items: flex-start; flex-direction: column; gap: 5px; }
   .data-basis > div { grid-template-columns: 1fr; }
 }
