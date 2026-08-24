@@ -62,7 +62,7 @@
 .insight-section { padding-top: clamp(58px, 8vw, 92px); }
 .insight-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 28px; }
 .insight-heading > p { max-width: 390px; margin: 0; color: var(--muted); line-height: 1.75; }
-.insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .insight-card { display: grid; min-height: 240px; padding: 28px; color: var(--text); background: #fff; border: 1px solid var(--border); border-radius: 18px; text-decoration: none; box-shadow: var(--shadow); }
 .insight-card .insight-tag { color: var(--sf-red); font-size: 10px; font-weight: 850; }
 .insight-card h3 { align-self: end; margin-top: 50px; font-size: 24px; }

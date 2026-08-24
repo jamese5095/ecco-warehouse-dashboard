@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="青浦消费品仓退货质检现场洞察报告：退货清点、鞋服质检、RF入库、漏扫风险与改善方案。">
+<title>退货质检现场洞察报告｜青浦消费品仓智能看板 Demo</title>
+<style>
+  :root{
+    --primary:#2f81f7; --green:#238636; --orange:#f0883e; --red:#d1242f;
+    --bg:#f5f7fa; --card:#fff; --text:#1f2328; --muted:#656d76; --border:#e6e8eb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.7;}
+  header{position:relative; padding:28px 24px; color:#fff; background:linear-gradient(135deg,#16263f,#2f81f7); text-align:center;}
+  header .back{position:absolute; left:20px; top:20px; z-index:5; display:inline-flex; align-items:center; gap:6px; padding:6px 16px; color:#fff; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:20px; box-shadow:0 1px 6px rgba(0,0,0,.15); font-size:13px; text-decoration:none;}
+  header .back:hover{background:rgba(255,255,255,.25);}
+  header .badge-row{margin-top:10px;}
+  header .domain{display:inline-block; padding:4px 16px; background:rgba(255,255,255,.14); border-radius:20px; font-size:13px;}
+  header h1{margin-top:10px; font-size:24px; font-weight:700; letter-spacing:1px;}
+  header p{margin-top:8px; font-size:14px; opacity:.9;}
+  .container{max-width:1000px; margin:0 auto; padding:0 18px 60px;}
+  .card{margin-top:26px; padding:24px; background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);}
+  .card h2{display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:20px;}
+  .card h2 .num{display:inline-flex; width:34px; height:34px; flex-shrink:0; align-items:center; justify-content:center; color:#fff; border-radius:50%; font-size:16px;}
+  .card h3{margin:16px 0 6px; color:var(--primary); font-size:15px;}
+  .card .desc{margin-bottom:14px; color:var(--muted); font-size:13px;}
+  .badge{padding:3px 12px; color:#fff; border-radius:20px; font-size:12px; font-weight:500; white-space:nowrap;}
+  .badge.blue{background:var(--primary);}.badge.green{background:var(--green);}.badge.orange{background:var(--orange);}.badge.red{background:var(--red);}.badge.purple{background:#8250df;}
+  table{width:100%; margin-top:16px; border-collapse:collapse; font-size:13px;}
+  th,td{padding:9px 11px; border:1px solid var(--border); text-align:left; vertical-align:top;}
+  th{background:#f0f4f9; font-weight:600;} tr:nth-child(even) td{background:#fafbfc;}
+  ul,ol{margin:8px 0 8px 22px;} li{margin:6px 0;}
+  .tip{margin-top:20px; padding:12px 16px; color:#6b5200; background:#fff8e6; border-left:4px solid #f5a623; border-radius:0 8px 8px 0; font-size:13px;}
+  .callout{margin:16px 0; padding:14px 18px; color:#1a3a6b; background:#eef4ff; border-left:4px solid var(--primary); border-radius:0 8px 8px 0; font-size:14px;}
+  .callout strong{color:#0b2a5b;}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .meta .item{padding:6px 12px; color:var(--muted); background:#f0f4f9; border:1px solid var(--border); border-radius:8px; font-size:12px;}
+  .meta .item b{color:var(--text);}
+  .mermaid{display:flex; width:100%; justify-content:flex-start; margin:12px 0 4px; overflow-x:auto;}
+  .mermaid svg{max-width:100%; height:auto;}
+  .control-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;}
+  .control-grid article{padding:16px; background:#f7f7f5; border:1px solid var(--border); border-radius:10px;}
+  .control-grid span{color:var(--red); font-size:10px; font-weight:700;}
+  .control-grid b{display:block; margin-top:8px; font-size:14px;}
+  .control-grid p{margin-top:5px; color:var(--muted); font-size:12px;}
+  footer{margin:36px 0 10px; color:var(--muted); font-size:12px; text-align:center;}
+  @media(max-width:620px){.control-grid{grid-template-columns:1fr;}}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body class="report-page">
+
+<header>
+  <a class="back" href="operations.html#returns">← 返回退货质检域</a>
+  <div class="badge-row"><span class="domain">↩️ 退货域 · Returns / QC</span></div>
+  <h1>退货质检 · 现场洞察报告</h1>
+  <p>从实物验收到系统入库 · 监控留痕 / 质检标准 / LPN计数 / 账实一致</p>
+</header>
+
+<div class="container">
+  <div class="card">
+    <div class="meta">
+      <div class="item">📌 <b>主题</b>：退货质检与RF入库准确性</div>
+      <div class="item">📍 <b>发现岗位</b>：退货质检岗</div>
+      <div class="item">🗓️ <b>报告日期</b>：2026-08-24</div>
+      <div class="item">🧑‍💻 <b>报告人</b>：易楷杰</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#2f81f7;">1</span> 流程环节 <span class="badge blue">Flow</span></h2>
+    <div class="desc">退货由实物清点进入质量判定，再按良品与不良品属性完成系统绑定和库位上架</div>
+    <div class="mermaid">
+flowchart LR
+    A[退货收货与清点] --> B[监控下鞋服质检]
+    B --> C{质量判定}
+    C -->|良品| D[护理、折叠或装袋]
+    C -->|不良品| E[损坏标签与分类登记]
+    D --> F[良品托盘]
+    E --> G[不良品托盘]
+    F & G --> H[RF绑定LPN入库]
+    H --> I[打印上架单并上架]
+    J[客户报废指令] --> K[备货复核与拍照]
+    K --> L[剪残并再次拍照]
+    style A fill:#2f81f7,color:#fff
+    style H fill:#8250df,color:#fff
+    style L fill:#d1242f,color:#fff
+    </div>
+    <table>
+      <tr><th>#</th><th>流程</th><th>具体内容</th></tr>
+      <tr><td>1</td><td><b>收货</b></td><td>在监控下逐件清点退回货品并记录件数；数量无误后在货物交接单上签字并填写栈板单。</td></tr>
+      <tr><td>2</td><td><b>质检</b></td><td><b>鞋类：</b>核对尺码、款式及大小脚，检查发黄、褶皱、划痕、鞋底和配件；可护理商品护理后转为良品，其余按试穿不良或产品不良贴标登记。<br><b>服装：</b>使用RF核对吊牌与外包装UPC，检查褶皱、脏污、发黄及拉链；完成护理、折叠、装袋和扫描，入库前校验吊牌、水洗标与UPC一致。</td></tr>
+      <tr><td>3</td><td><b>入库</b></td><td>按良品与不良品属性分托并粘贴栈板单；使用RF绑定箱号和LPN，打印上架单后完成上架。</td></tr>
+      <tr><td>4</td><td><b>报废</b></td><td>根据客户报废指令和出库单备货，复核数量并拍照；剪残处理后再次留存照片。</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#f0883e;">2</span> 操作重点 <span class="badge orange">Key Points</span></h2>
+    <div class="desc">操作标准同时服务于商品保护、质量判断、监控证据链和系统准确性</div>
+    <h3>开箱与清点</h3>
+    <ul>
+      <li>划开纸箱时应先将箱体拎起，避免刀口接触并划伤衣物。</li>
+      <li>必须在监控下逐件展示、依次清点，不可将两件商品重叠清点。</li>
+      <li>可按十件一摞辅助计数，使监控画面和人工记录更清晰。</li>
+    </ul>
+    <h3>鞋服质检</h3>
+    <ul>
+      <li><b>服装：</b>先用RF校对条码，再按照“从上到下、从内到外”的顺序检查污渍、发黄、褶皱及拉链状态。</li>
+      <li><b>鞋类：</b>核对尺码、大小脚、颜色和款式；托于手心从左至右旋转检查褶皱、发黄、鞋垫及其他配件。</li>
+      <li>鞋服质检均需处于监控范围；夏季佩戴手套，防止汗液造成二次污染。</li>
+    </ul>
+    <h3>RF入库与上架</h3>
+    <ul>
+      <li>根据客户是否要求将良品移出不良品库，选择对应RF收货功能并分别处理良品与不良品。</li>
+      <li>扫描员依次扫描箱号、LPN及鞋类单品，同时人工清点每个LPN下的实物数量。</li>
+      <li>每个LPN、托盘及最终总数均需保持实物数量与系统记录一致。</li>
+    </ul>
+    <div class="callout"><strong>核心控制点：</strong>监控下逐件清点 · 鞋服质检路径标准化 · 商品质量属性分托 · LPN实物与系统数量即时核对</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#d1242f;">3</span> 核心问题 · 入库漏扫 <span class="badge red">Problem</span></h2>
+    <div class="desc">部分鞋类实物已经放入库位，但系统中缺少相应扫描记录，导致系统已入库数量低于实物数量</div>
+    <div class="mermaid">
+flowchart LR
+    A[扫描箱号与LPN] --> B[逐双扫描鞋类]
+    B --> C[实物放入对应LPN]
+    C --> D{扫描页仅显示总体数量}
+    D --> E[查看本LPN数量需跳转页面]
+    E --> F[依赖人工累加和记忆]
+    F --> G[单品漏扫未即时发现]
+    G --> H[最终总数对账不符]
+    H --> I[逐托逐LPN反查]
+    style D fill:#f0883e,color:#fff
+    style G fill:#d1242f,color:#fff
+    style I fill:#d1242f,color:#fff
+    </div>
+    <table>
+      <tr><th>问题表现</th><th>直接原因</th><th>后果</th></tr>
+      <tr><td>系统记录的已入库双数偏少，出现“实物已放入、系统无记录”。</td><td>RF当前扫描页不显示本LPN实时入库数量；数量明细需要跳页查看，现场依靠人工累计。</td><td>差异只能在最终对账时暴露，需要逐托盘、逐LPN追查，耗时长且容易再次出错。</td></tr>
+    </table>
+    <div class="tip">⚠️ <b>问题本质：</b>控制点设置在“最终总数对账”，而不是“每个LPN关闭前”。发现差异的时间越晚，反查范围越大。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#8250df;">4</span> 根因与业务影响 <span class="badge purple">Why it matters</span></h2>
+    <div class="desc">RF信息呈现与现场操作节奏不一致，使扫描员需要在实物处理、系统操作和人工计数之间频繁切换</div>
+    <table>
+      <tr><th>#</th><th>根因或风险</th><th>说明</th></tr>
+      <tr><td>1</td><td><b>当前LPN状态不可见</b></td><td>扫描页只展示总体已入库与未入库数量，无法直接判断当前容器已经扫描多少双。</td></tr>
+      <tr><td>2</td><td><b>系统信息分散</b></td><td>查看LPN数量明细需要切换页面，打断连续扫描动作。</td></tr>
+      <tr><td>3</td><td><b>人工认知负荷高</b></td><td>扫描员同时承担逐双扫码、关箱和数量累加，忙碌时容易漏记或漏扫。</td></tr>
+      <tr><td>4</td><td><b>差异发现过晚</b></td><td>只有最终总数不符才开始追查，异常定位范围从一个LPN扩大到多个托盘。</td></tr>
+      <tr><td>5</td><td><b>库存可用性失真</b></td><td>实物存在但系统不可见，会影响库存查询、后续上架确认和可用库存判断。</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="num" style="background:#238636;">5</span> 解决方案 <span class="badge green">How to fix</span></h2>
+    <div class="desc">将核对动作前移到每个LPN关闭之前，同时降低扫描员的人工记忆负担</div>
+    <div class="mermaid">
+flowchart LR
+    A[开始处理当前LPN] --> B[扫描员逐双扫码]
+    B --> C[RF页面实时显示本LPN数量]
+    C --> D[复核员独立清点实物]
+    D --> E{系统数等于实物数?}
+    E -->|是| F[确认关箱并绑定托盘]
+    E -->|否| G[当场定位漏扫或重复扫描]
+    G --> B
+    F --> H[进入下一LPN]
+    style C fill:#8250df,color:#fff
+    style E fill:#f0883e,color:#fff
+    style F fill:#238636,color:#fff
+    </div>
+    <h3>方案一 · 优化RF界面</h3>
+    <ul>
+      <li>在当前扫描页直接显示“本LPN当前已入库数量”，并随每次扫描实时更新。</li>
+      <li>同时保留总体已入库、未入库数量，使扫描员既能看当前容器，也能看全局进度。</li>
+      <li>关闭LPN前突出显示系统数量，形成明确的即时核对节点。</li>
+    </ul>
+    <h3>方案二 · 双人即时复核</h3>
+    <ul>
+      <li>两人一组：前位人员负责RF扫描、系统操作和关箱，后位人员负责独立清点当前LPN实物数量。</li>
+      <li>每个LPN完成后立即比较实物数与系统数，数量一致才进入下一LPN。</li>
+      <li>发现差异时在当前容器内即时排查，不将问题留到全部托盘完成后。</li>
+    </ul>
+    <div class="control-grid">
+      <article><span>系统改善</span><b>当前LPN实时计数</b><p>减少跳页和人工累加，使容器状态始终可见。</p></article>
+      <article><span>操作改善</span><b>扫描与计数职责分离</b><p>通过独立复核降低单人多任务造成的漏扫。</p></article>
+      <article><span>控制前移</span><b>按LPN即时对清</b><p>把差异定位范围限制在当前容器。</p></article>
+      <article><span>结果目标</span><b>账实一致、快速追溯</b><p>减少最终总账不符后的逐托反查。</p></article>
+    </div>
+    <div class="tip">✅ <b>建议优先级：</b>短期先实施双人即时核对；中期推动RF扫描页增加本LPN实时数量。两项措施结合后，才能同时降低漏扫概率和异常追查成本。</div>
+  </div>
+
+  <div class="tip">💡 <strong>总结：</strong>退货质检既要判断商品能否重新销售，也要确保每件实物准确进入系统。优化重点不是在总数不符后加快查找，而是让每个LPN在关闭前完成账实核对。</div>
+</div>
+
+<footer>退货质检现场洞察报告 · 青浦消费品仓智能看板 Demo · 2026-08-24</footer>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables:{ primaryColor:'#fff0f0',primaryTextColor:'#1c1c1c',primaryBorderColor:'#e60000',lineColor:'#6b6963',secondaryColor:'#f1f2f2',tertiaryColor:'#f7f7f7',fontFamily:'Arial, PingFang SC, Microsoft YaHei, sans-serif' } });
+</script>
+</body>
+</html>
